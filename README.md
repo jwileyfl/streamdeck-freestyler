@@ -1,7 +1,8 @@
 # streamdeck-freestyler ![](https://www.freestylersupport.com/wiki/_media/fs_logo.gif)
 An unofficial Freestyler DMX plugin for the Elgato Stream Deck
 
-![](https://img.shields.io/static/v1?label=&message=Unofficial&color=critical)</br>
+![](https://img.shields.io/static/v1?label=&message=Unofficial&color=red&style=plastic)</br>
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey?style=plastic)</br>
 ![Last Commit](https://img.shields.io/github/last-commit/jwileyfl/streamdeck-freestyler?style=plastic)</br>
 ![Contributers](https://img.shields.io/github/contributors/jwileyfl/streamdeck-freestyler?style=plastic)</br>
 ![Open Issues](https://img.shields.io/github/issues-raw/jwileyfl/streamdeck-freestyler?style=plastic)

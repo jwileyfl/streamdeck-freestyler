@@ -6,3 +6,6 @@ Link to online reference for external control of freestyler: https://www.freesty
 
 Link to Elgato Website: https://www.elgato.com</br>
 Link to online reference for stream deck plugin development: https://developer.elgato.com/documentation/stream-deck/sdk/overview/
+
+
+![StreamDeck Screenshot](https://github.com/jwileyfl/streamdeck-freestyler/blob/main/StreamDeckScreenshot.png?raw=true)

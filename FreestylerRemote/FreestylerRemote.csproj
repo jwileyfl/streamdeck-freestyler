@@ -180,4 +180,9 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>pushd "$(ProjectDir)"
+build.cmd $(ConfigurationName)
+popd</PostBuildEvent>
+  </PropertyGroup>
 </Project>

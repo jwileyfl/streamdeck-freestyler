@@ -243,6 +243,23 @@ namespace FreestylerRemote
                             client.Disconnect();
                         }
                         break;
+                    case BaseUuid + ".prevscene":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("576", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
                     case BaseUuid + ".dmx400blackout":
                         client = new TCPClient();
                         try
@@ -267,6 +284,40 @@ namespace FreestylerRemote
                             client.Connect();
                             client.Send("311", "255");
                             client.Send("311","000");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".prevgroup":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("296", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".nextgroup":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("297", "255");
                         }
                         catch (Exception e)
                         {

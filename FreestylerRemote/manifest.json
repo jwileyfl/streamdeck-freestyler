@@ -241,6 +241,156 @@
       "UUID": "com.resnexsoft.freestyler.remote.togglesequence10"
     },
     {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 11",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 11",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 11",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence11"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 12",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 12",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 12",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence12"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 13",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 13",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 13",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence13"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 14",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 14",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 14",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence14"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 15",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 15",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 15",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence15"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 16",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 16",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 16",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence16"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 17",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 17",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 17",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence17"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 18",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 18",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 18",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence18"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 19",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 19",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 19",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence19"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 20",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 20",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 20",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence20"
+    },
+    {
       "Icon": "Images/actionCue",
       "Name": "Toggle Cuelist 1",
       "States": [
@@ -407,6 +557,51 @@
     },
     {
       "Icon": "Images/actionNext",
+      "Name": "Previos Scene",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Prev Scene",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Advances Sequence to Previous Scene",
+      "UUID": "com.resnexsoft.freestyler.remote.prevscene"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Previos Group",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Prev Group",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Previous Group",
+      "UUID": "com.resnexsoft.freestyler.remote.prevgroup"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Next Group",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Next Group",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Next Group",
+      "UUID": "com.resnexsoft.freestyler.remote.nextgroup"
+    },
+    {
+      "Icon": "Images/actionNext",
       "Name": "Group 1",
       "States": [
         {
@@ -479,6 +674,81 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Group 5 Fixtures",
       "UUID": "com.resnexsoft.freestyler.remote.group5"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 6",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 6",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 6 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group6"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 7",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 7",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 7 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group7"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 8",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 8",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 8 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group8"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 9",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 9",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 9 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group9"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 10",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 10",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 10 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group10"
     },
     {
       "Icon": "Images/actionOverride",

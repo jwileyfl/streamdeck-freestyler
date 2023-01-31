@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
+	<meta name=apple-mobile-web-app-capable content=yes>
+	<meta name=apple-mobile-web-app-status-bar-style content=black>
+	<title>Property Inspector Demo</title>
+	<link rel="stylesheet" href="../sdpi.css">
+</head>
+<body>
+<div class="sdpi-wrapper">
+	<div class="sdpi-item">
+		<div class="sdpi-item-label">Select Demo</div>
+		<select class="sdpi-item-value select" id="select_single" oninput="updateSettings()" enabled>
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
+	</div>
+</div>
+
+<div class="sdpi-item">
+	<div class="sdpi-item-label">Text Demo</div>
+	<input class="sdpi-item-value" id="text_demo" value="" placeholder="Text (optional)" oninput="updateSettings()" enabled>
+</div>
+
+<script src="Index.js"></script>
+</body>
+</html>

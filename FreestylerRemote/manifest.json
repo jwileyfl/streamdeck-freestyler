@@ -1,0 +1,568 @@
+{
+  "Actions": [
+    {
+      "Icon": "Images/actionBlackout",
+      "Name": "Toggle Master Blackout",
+      "States": [
+        {
+          "Image": "Images/keyBlackout",
+          "Title": "Blackout",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Master Blackout in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.blackout"
+    },
+    {
+      "Icon": "Images/actionPlaySeq",
+      "Name": "Master 100%",
+      "States": [
+        {
+          "Image": "Images/keyPlaySeq",
+          "Title": "Master 100%",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sets Master Intensity to 100% in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.master100"
+    },
+    {
+      "Icon": "Images/actionPlaySeq",
+      "Name": "Master 0%",
+      "States": [
+        {
+          "Image": "Images/keyPlaySeq",
+          "Title": "Master 0%",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sets Master Intensity to 0% in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.master0"
+    },
+    {
+      "Icon": "Images/actionFadeIn",
+      "Name": "Fade In",
+      "States": [
+        {
+          "Image": "Images/keyFadeIn",
+          "Title": "Fade In",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Fade In Master in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.fadein"
+    },
+    {
+      "Icon": "Images/actionFadeOut",
+      "Name": "Fade Out",
+      "States": [
+        {
+          "Image": "Images/keyFadeOut",
+          "Title": "Fade Out",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Fade Out Master in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.fadeout"
+    },
+    {
+      "Icon": "Images/actionPlaySeq",
+      "Name": "Play Sequence",
+      "States": [
+        {
+          "Image": "Images/keyPlaySeq",
+          "Title": "Play Seq",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Plays Active Sequence in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.playSequence"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 1",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 1",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 1",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence1"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 2",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 2",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 2",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence2"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 3",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 3",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 3",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence3"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 4",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 4",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 4",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence4"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 5",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 5",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 5",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence5"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 6",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 6",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 6",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence6"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 7",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 7",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 7",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence7"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 8",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 8",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 8",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence8"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 9",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 9",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 9",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence9"
+    },
+    {
+      "Icon": "Images/actionSequence",
+      "Name": "Toggle Sequence 10",
+      "States": [
+        {
+          "Image": "Images/keySequence",
+          "Title": "Sequence 10",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Sequence 10",
+      "UUID": "com.resnexsoft.freestyler.remote.togglesequence10"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 1",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 1",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 1",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist1"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 2",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 2",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 2",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist2"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 3",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 3",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 3",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist3"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 4",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 4",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 4",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist4"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 5",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 5",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 5",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist5"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 6",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 6",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 6",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist6"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 7",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 7",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 7",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist7"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 8",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 8",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 8",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist8"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 9",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 9",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 9",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist9"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Toggle Cuelist 10",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Cuelist 10",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Cuelist 10",
+      "UUID": "com.resnexsoft.freestyler.remote.togglecuelist10"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Next Scene",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Next Scene",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Advances Sequence to Next Scene",
+      "UUID": "com.resnexsoft.freestyler.remote.nextscene"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 1",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 1",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 1 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group1"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 2",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 2",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 2 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group2"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 3",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 3",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 3 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group3"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 4",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 4",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 4 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group4"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 5",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 5",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 5 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group5"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 1",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 1",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 1 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override1"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "DMX400 Blackout",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "DMX400 Blackout",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles DMX400 Blackout",
+      "UUID": "com.resnexsoft.freestyler.remote.dmx400blackout"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "DMX400 100%",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "DMX400 100%",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Set DMX400 Master Intensity to 100%",
+      "UUID": "com.resnexsoft.freestyler.remote.dmx400Full"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Test Plugin - Property Inspector",
+      "States": [
+        {
+          "Image": "Images/action",
+          "TitleAlignment": "middle",
+          "FontSize": "17"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "This demonstrates saving and using settings",
+      "UUID": "com.resnexsoft.freestyler.remote.pidemo",
+      "PropertyInspectorPath": "PropertyInspector/PIDemo/Index.html"
+    }
+  ],
+  "Author": "Jeremy Wiley",
+  "Description": "Remote Control for Freestyler",
+  "Name": "Freestyler Remote (Unofficial)",
+  "Icon": "Images/categoryimage",
+  "URL": "https://github.com/resnexsoft/freestylerremote",
+  "Version": "0.1.0",
+  "CodePath": "FreestylerRemote",
+  "Category": "Freestyler",
+  "CategoryIcon": "Images/categoryimage",
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "4.1"
+  },
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "ApplicationsToMonitor": {
+    "windows": [
+      "FreeStylerX2.exe"
+    ]
+  }
+}

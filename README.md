@@ -16,6 +16,16 @@ Link to online reference for external control of freestyler: https://www.freesty
 Link to Elgato Website: https://www.elgato.com</br>
 Link to online reference for stream deck plugin development: https://developer.elgato.com/documentation/stream-deck/sdk/overview/
 
-Link to streamdeck-client-csharp repository: [streamdeck-client-csharp](https://github.com/TyrenDe/streamdeck-client-csharp)
+# Dependencies
+
+[streamdeck-client-csharp](https://github.com/TyrenDe/streamdeck-client-csharp)
+[![NuGet version (CommandLineParser)](https://img.shields.io/nuget/v/CommandLineParser.svg?style=plastic-square)](https://www.nuget.org/packages/CommandLineParser)
+
+[CommandLine Parser](https://github.com/commandlineparser/commandline)
+[![NuGet version (streamdeck-client-csharp)](https://img.shields.io/nuget/v/streamdeck-client-csharp.svg?style=plastic-square)](https://www.nuget.org/packages/streamdeck-client-csharp)
+
+[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
+[![NuGet version (Newtonsoft.Json)](https://img.shields.io/nuget/v/Newtonsoft.Json.svg?style=plastic-square)](https://www.nuget.org/packages/Newtonsoft.Json)
+
 # Screenshot
 ![StreamDeck Screenshot](https://github.com/jwileyfl/streamdeck-freestyler/blob/main/StreamDeckScreenshot.png?raw=true)

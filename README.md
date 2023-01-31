@@ -4,5 +4,5 @@ This is an unofficial Freestyler DMX plugin for the Elgato Stream Deck (in-progr
 Link to Freestyler Home Page: https://www.freestylerdmx.be</br>
 Link to online reference for external control of freestyler: https://www.freestylersupport.com/wiki/external_control
 
-
+Link to Elgato Website: https://www.elgato.com</br>
 Link to online reference for stream deck plugin development: https://developer.elgato.com/documentation/stream-deck/sdk/overview/

@@ -186,3 +186,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# StreamDeck Distribution Package 
+DistributionPackage/

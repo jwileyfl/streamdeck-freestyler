@@ -1,4 +1,4 @@
-# streamdeck-freestyler
+# streamdeck-freestyler ![](https://www.freestylersupport.com/wiki/_media/fs_logo.gif)
 This is an unofficial Freestyler DMX plugin (in-progress) for the Elgato Stream Deck using the [streamdeck-client-csharp](https://github.com/TyrenDe/streamdeck-client-csharp)
 
 ![Last Commit](https://img.shields.io/github/last-commit/jwileyfl/streamdeck-freestyler?style=plastic)</br>

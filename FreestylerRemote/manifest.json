@@ -16,6 +16,66 @@
       "UUID": "com.resnexsoft.freestyler.remote.blackout"
     },
     {
+      "Icon": "Images/action",
+      "Name": "Release All",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Release All",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Releases All Fixtures in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.releaseall"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Fog/Smoke",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Fog/Smoke",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles Fog/Smoke in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.fog"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Fog Level",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Fog Level",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Adjusts Fog Level in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.foglevel"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Fog Fan Speed",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Fog Fan Speed",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Adjusts Fog Fan Speed in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.fogfanspeed"
+    },
+    {
       "Icon": "Images/actionPlaySeq",
       "Name": "Master 100%",
       "States": [
@@ -557,7 +617,7 @@
     },
     {
       "Icon": "Images/actionNext",
-      "Name": "Previos Scene",
+      "Name": "Previous Scene",
       "States": [
         {
           "Image": "Images/keyNext",
@@ -572,7 +632,7 @@
     },
     {
       "Icon": "Images/actionNext",
-      "Name": "Previos Group",
+      "Name": "Previous Group",
       "States": [
         {
           "Image": "Images/keyNext",
@@ -766,6 +826,216 @@
       "UUID": "com.resnexsoft.freestyler.remote.override1"
     },
     {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 2",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 2",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 2 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override2"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 3",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 3",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 3 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override3"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 4",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 4",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 4 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override4"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 5",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 5",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 5 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override5"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 6",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 6",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 6 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override6"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 7",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 7",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 7 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override7"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 8",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 8",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 8 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override8"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 9",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 9",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 9 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override9"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 10",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 10",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 10 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override10"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 11",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 11",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 11 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override11"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 12",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 12",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 12 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override12"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 13",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 13",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 13 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override13"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 14",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 14",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 14 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override14"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide 15",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 15",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 15 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override15"
+    },
+    {
       "Icon": "Images/action",
       "Name": "DMX400 Blackout",
       "States": [
@@ -794,6 +1064,66 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Set DMX400 Master Intensity to 100%",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400Full"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Tap Sync",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Tap Sync",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Tap Sync in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.tapsync"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Manual Trigger",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Manual Trig",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Manual Trigger in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.mantrig"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Sound To Light Trigger",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "S2L Trig",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sound To LIght Trigger in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.soundtolighttrigger"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Disable Tap/Manual Trigger",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Disable Tap",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Disable Tab/Manual Trigger in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.tapsyncdisable"
     },
     {
       "Icon": "Images/action",

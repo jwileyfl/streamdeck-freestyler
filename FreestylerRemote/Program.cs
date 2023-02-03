@@ -467,6 +467,57 @@ namespace FreestylerRemote
                             client.Disconnect();
                         }
                         break;
+                    case BaseUuid + ".prevoverridetab":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("298", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".nextoverridetab":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("299", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".disableoverrides":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("265", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
                     default:
                         if (args.Event.Action.StartsWith(BaseUuid + ".togglesequence"))
                         {
@@ -477,6 +528,11 @@ namespace FreestylerRemote
                         {
                             int num = Int32.Parse(args.Event.Action.Last().ToString());
                             ToggleCueList(num);
+                        }
+                        else if (args.Event.Action.StartsWith(BaseUuid + ".overridetab"))
+                        {
+                            int num = Int32.Parse(args.Event.Action.Last().ToString());
+                            SelectOverrideTab(num);
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".override"))
                         {
@@ -631,6 +687,32 @@ namespace FreestylerRemote
                 client.Connect();
                 client.Send(overrideList[overrideButton], "255");
                 client.Send(overrideList[overrideButton], "000");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+        }
+
+        static void SelectOverrideTab(int overrideTab)
+        {
+            if (overrideTab < 1 || overrideTab > 6)
+            {
+                return;
+            }
+
+            List<string> overrideTabList = new List<string>() { "0", "234", "235", "236", "237", "238", "239" };
+            TCPClient client = new TCPClient();
+
+            try
+            {
+                client.Connect();
+                client.Send(overrideTabList[overrideTab], "255");
             }
             catch (Exception e)
             {

@@ -812,7 +812,97 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 1",
+      "Name": "OverRide Tab 1",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OvrRide Tab 1",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Override Tab 1 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.overridetab1"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Tab 2",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OvrRide Tab 2",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Override Tab 2 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.overridetab2"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Tab 3",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OvrRide Tab 3",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Override Tab 3 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.overridetab3"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Tab 4",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OvrRide Tab 4",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Override Tab 4 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.overridetab4"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Tab 5",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OvrRide Tab 5",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Override Tab 5 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.overridetab5"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Tab 6",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OvrRide Tab 6",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Override Tab 6 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.overridetab6"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Button 1",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -827,7 +917,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 2",
+      "Name": "OverRide Button 2",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -842,7 +932,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 3",
+      "Name": "OverRide Button 3",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -857,7 +947,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 4",
+      "Name": "OverRide Button 4",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -872,7 +962,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 5",
+      "Name": "OverRide Button 5",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -887,7 +977,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 6",
+      "Name": "OverRide Button 6",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -902,7 +992,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 7",
+      "Name": "OverRide Button 7",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -917,7 +1007,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 8",
+      "Name": "OverRide Button 8",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -932,7 +1022,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 9",
+      "Name": "OverRide Button 9",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -947,7 +1037,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 10",
+      "Name": "OverRide Button 10",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -962,7 +1052,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 11",
+      "Name": "OverRide Button 11",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -977,7 +1067,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 12",
+      "Name": "OverRide Button 12",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -992,7 +1082,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 13",
+      "Name": "OverRide Button 13",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -1007,7 +1097,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 14",
+      "Name": "OverRide Button 14",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -1022,7 +1112,7 @@
     },
     {
       "Icon": "Images/actionOverride",
-      "Name": "OverRide 15",
+      "Name": "OverRide Button 15",
       "States": [
         {
           "Image": "Images/keyOverride",
@@ -1034,6 +1124,51 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Clicks Button 15 in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.override15"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "Previous Override Tab",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "Prev Tab",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Previous Tab in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.prevoverridetab"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "Next Override Tab",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "Next Tab",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Next Tab in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.nextoverridetab"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "Disable all Overrides",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "Dis Overrides",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Disables all Buttons in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.disableoverrides"
     },
     {
       "Icon": "Images/action",

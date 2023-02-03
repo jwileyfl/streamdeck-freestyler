@@ -135,7 +135,77 @@ namespace FreestylerRemote
                         {
                             client.Disconnect();
                         }
-                        
+                        break;
+                    case BaseUuid + ".releaseall":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("024", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".fog":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("176", "255");
+                            client.Send("176", "000");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".foglevel":
+                        // TODO:  get value 0 - 255 from prop insp
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("304", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".fogfanspeed":
+                        // TODO:  get value 0 - 255 from prop insp
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("305", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
                         break;
                     case BaseUuid + ".master100":
                         client = new TCPClient();
@@ -284,6 +354,74 @@ namespace FreestylerRemote
                             client.Connect();
                             client.Send("311", "255");
                             client.Send("311","000");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".tapsync":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("009", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".mantrig":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("207", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".soundtolighttrigger":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("232", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".tapsyncdisable":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("134", "255");
                         }
                         catch (Exception e)
                         {

@@ -330,6 +330,23 @@ namespace FreestylerRemote
                             client.Disconnect();
                         }
                         break;
+                    case BaseUuid + ".dmx400mode":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("564", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
                     case BaseUuid + ".dmx400blackout":
                         client = new TCPClient();
                         try
@@ -354,6 +371,57 @@ namespace FreestylerRemote
                             client.Connect();
                             client.Send("311", "255");
                             client.Send("311","000");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".dmx400fade":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("312", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".dmx400autochange":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("315", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".dmx400colorchange":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("316", "255");
                         }
                         catch (Exception e)
                         {

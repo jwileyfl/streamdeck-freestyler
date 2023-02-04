@@ -452,6 +452,126 @@
     },
     {
       "Icon": "Images/actionCue",
+      "Name": "CueList Tab 1",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "CueList Tab 1",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects CueList Tab 1 in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.cuelisttab1"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "CueList Tab 2",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "CueList Tab 2",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects CueList Tab 2 in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.cuelisttab2"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "CueList Tab 3",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "CueList Tab 3",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects CueList Tab 3 in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.cuelisttab3"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "CueList Tab 4",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "CueList Tab 4",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects CueList Tab 4 in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.cuelisttab4"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "CueList Tab 5",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "CueList Tab 5",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects CueList Tab 5 in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.cuelisttab5"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "CueList Tab 6",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "CueList Tab 6",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects CueList Tab 6 in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.cuelisttab6"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Previous CueList Tab",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Prev CueList Tab",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Previous CueList Tab in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.prevcuelisttab"
+    },
+    {
+      "Icon": "Images/actionCue",
+      "Name": "Next CueList Tab",
+      "States": [
+        {
+          "Image": "Images/keyCue",
+          "Title": "Next CueList Tab",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Next CueList Tab in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.nextcuelisttab"
+    },
+    {
+      "Icon": "Images/actionCue",
       "Name": "Toggle Cuelist 1",
       "States": [
         {

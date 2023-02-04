@@ -1292,6 +1292,21 @@
     },
     {
       "Icon": "Images/action",
+      "Name": "DMX400 Toggle Mode",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "DMX400 Mode",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggles DMX400 Mode",
+      "UUID": "com.resnexsoft.freestyler.remote.dmx400mode"
+    },
+    {
+      "Icon": "Images/action",
       "Name": "DMX400 Blackout",
       "States": [
         {
@@ -1319,6 +1334,51 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Set DMX400 Master Intensity to 100%",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400Full"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "DMX400 Fade",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "DMX400 Fade",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Fade DMX400",
+      "UUID": "com.resnexsoft.freestyler.remote.dmx400fade"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "DMX400 Auto Change",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "DMX400 Auto",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sets DMX400 to Auto Change",
+      "UUID": "com.resnexsoft.freestyler.remote.dmx400autochange"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "DMX400 Color Change",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "DMX400 Color",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sets DMX400 to Color Change",
+      "UUID": "com.resnexsoft.freestyler.remote.dmx400colorchange"
     },
     {
       "Icon": "Images/action",

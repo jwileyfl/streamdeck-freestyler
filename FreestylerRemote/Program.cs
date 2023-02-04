@@ -518,11 +518,50 @@ namespace FreestylerRemote
                             client.Disconnect();
                         }
                         break;
+                    case BaseUuid + ".prevcuelisttab":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("300", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
+                    case BaseUuid + ".nextcuelisttab":
+                        client = new TCPClient();
+                        try
+                        {
+                            client.Connect();
+                            client.Send("301", "255");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            throw;
+                        }
+                        finally
+                        {
+                            client.Disconnect();
+                        }
+                        break;
                     default:
                         if (args.Event.Action.StartsWith(BaseUuid + ".togglesequence"))
                         {
                             int num = Int32.Parse(args.Event.Action.Last().ToString());
                             ToggleSequence(num);
+                        }
+                        else if (args.Event.Action.StartsWith(BaseUuid + ".cuelisttab"))
+                        {
+                            int num = Int32.Parse(args.Event.Action.Last().ToString());
+                            SelectCueListTab(num);
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".togglecuelist"))
                         {
@@ -630,6 +669,32 @@ namespace FreestylerRemote
             {
                 client.Connect();
                 client.Send(sequence[seqNumber], "255");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+        }
+
+        static void SelectCueListTab(int cueListTab)
+        {
+            if (cueListTab < 1 || cueListTab > 6)
+            {
+                return;
+            }
+
+            List<string> cueListTabList = new List<string>() { "0", "266", "267", "268", "269", "270", "271" };
+            TCPClient client = new TCPClient();
+
+            try
+            {
+                client.Connect();
+                client.Send(cueListTabList[cueListTab], "255");
             }
             catch (Exception e)
             {

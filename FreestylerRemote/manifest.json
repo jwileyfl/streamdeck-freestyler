@@ -76,6 +76,291 @@
       "UUID": "com.resnexsoft.freestyler.remote.fogfanspeed"
     },
     {
+      "Icon": "Images/action",
+      "Name": "Open All Panels",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open All",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens All Available Panels in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openall"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Gobo Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Gobo",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Gobo Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opengobo"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Color Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Color",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Color Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opencolor"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Pan/Tilt Panels",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Pan/Tilt",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Pan/Tilt Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openpantilt"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Beam Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Beam",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Beam Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openbeam"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Macro Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Macro",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Macro Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openmacro"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Dmx400 Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Dmx400",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Dmx400 Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opendmx400"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Lamp Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Lamp",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Lamp Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openlamp"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Create Seq Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Seq",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Create Sequence Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opencreatesequence"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Cue Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Cue",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Cue Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opencue"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Sound Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Sound",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Sound Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opensound"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Output Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Output",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Output Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openoutput"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Framing Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Framing",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Framing Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openframing"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Override Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open OvrRd",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Override Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openoverride"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Master Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Master",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Master Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openmaster"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open SubMaster Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Sub",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens SubMaster Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opensubmaster"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open Smoke Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open Smoke",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens Smoke Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opensmoke"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open FX Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open FX",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens FX Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.openfx"
+    },
+    {
+      "Icon": "Images/action",
+      "Name": "Open CueList Panel",
+      "States": [
+        {
+          "Image": "Images/action",
+          "Title": "Open CueList",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Opens CueList Panel in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.opencuelist"
+    },
+    {
       "Icon": "Images/actionPlaySeq",
       "Name": "Master 100%",
       "States": [
@@ -931,6 +1216,216 @@
       "UUID": "com.resnexsoft.freestyler.remote.group10"
     },
     {
+      "Icon": "Images/actionNext",
+      "Name": "Group 11",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 11",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 11 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group11"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 12",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 12",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 12 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group12"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 13",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 13",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 13 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group13"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 14",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 14",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 14 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group14"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 15",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 15",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 15 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group15"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 16",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 16",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 16 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group16"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 17",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 17",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 17 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group17"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 18",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 18",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 18 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group18"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 19",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 19",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 19 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group19"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 20",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 20",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 20 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group20"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 21",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 21",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 21 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group21"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 22",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 22",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 22 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group22"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 23",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 23",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 23 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group23"
+    },
+    {
+      "Icon": "Images/actionNext",
+      "Name": "Group 24",
+      "States": [
+        {
+          "Image": "Images/keyNext",
+          "Title": "Group 24",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Selects Group 24 Fixtures",
+      "UUID": "com.resnexsoft.freestyler.remote.group24"
+    },
+    {
       "Icon": "Images/actionOverride",
       "Name": "OverRide Tab 1",
       "States": [
@@ -1244,6 +1739,81 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Clicks Button 15 in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.override15"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Button 16",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 16",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 16 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override16"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Button 17",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 17",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 17 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override17"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Button 18",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 18",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 18 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override18"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Button 19",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 19",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 19 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override19"
+    },
+    {
+      "Icon": "Images/actionOverride",
+      "Name": "OverRide Button 20",
+      "States": [
+        {
+          "Image": "Images/keyOverride",
+          "Title": "OverRide 20",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Clicks Button 20 in Override Panel",
+      "UUID": "com.resnexsoft.freestyler.remote.override20"
     },
     {
       "Icon": "Images/actionOverride",

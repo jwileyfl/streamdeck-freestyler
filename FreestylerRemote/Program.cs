@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Channels;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -621,9 +622,15 @@ namespace FreestylerRemote
                         }
                         break;
                     default:
+                        if (args.Event.Action.StartsWith(BaseUuid + ".open"))
+                        {
+                            string panel = args.Event.Action.Replace(BaseUuid + ".open", "");
+                            OpenPanel(panel);
+                        }
+
                         if (args.Event.Action.StartsWith(BaseUuid + ".togglesequence"))
                         {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
+                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglesequence", ""));
                             ToggleSequence(num);
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".cuelisttab"))
@@ -633,7 +640,7 @@ namespace FreestylerRemote
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".togglecuelist"))
                         {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
+                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglecuelist", ""));
                             ToggleCueList(num);
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".overridetab"))
@@ -643,12 +650,12 @@ namespace FreestylerRemote
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".override"))
                         {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
+                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".override", ""));
                             ToggleOverride(num);
                         }
                         else if (args.Event.Action.StartsWith(BaseUuid + ".group"))
                         {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
+                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".group", ""));
                             SelectGroup(num);
                         }
                         break;
@@ -719,6 +726,38 @@ namespace FreestylerRemote
                 {
                     
                 }
+            }
+        }
+
+        static void OpenPanel(string panel)
+        {
+            Dictionary<string, string> panelDict = new Dictionary<string, string>()
+            {
+                {"all", "569"}, {"gobo", "003"}, {"color", "004"}, {"pantilt", "005"}, {"beam", "006"}, {"macro", "007"}, {"dmx400", "008"},
+                {"lamp", "010"}, {"createsequence", "011"}, {"cue", "012"}, {"sound", "013"}, {"output", "014"}, {"framing", "029"},
+                {"override", "570"}, {"master", "572"}, {"submaster", "573"}, {"smoke", "574"}, {"fx", "581"}, {"cuelist", "670"}
+            };
+
+            if (!panelDict.ContainsKey(panel))
+            {
+                return;
+            }
+
+            TCPClient client = new TCPClient();
+
+            try
+            {
+                client.Connect();
+                client.Send(panelDict[panel], "255");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                client.Disconnect();
             }
         }
 

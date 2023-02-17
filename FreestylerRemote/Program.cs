@@ -7,11 +7,13 @@ using streamdeck_client_csharp.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Net.Mime;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -73,7 +75,8 @@ namespace FreestylerRemote
             ManualResetEvent disconnectEvent = new ManualResetEvent(false);
 
             StreamDeckConnection connection = new StreamDeckConnection(options.Port, options.PluginUUID, options.RegisterEvent);
-
+            Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
+            
             connection.OnConnected += (sender, args) =>
             {
                 connectEvent.Set();
@@ -621,6 +624,23 @@ namespace FreestylerRemote
                             client.Disconnect();
                         }
                         break;
+                    case BaseUuid + ".togglesequence":
+
+                        ToggleSequence((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".selectcuelisttab":
+                        SelectCueListTab((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".toggleoverride":
+                        ToggleOverride((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+                    
+                    case BaseUuid + ".selectgroup":
+                        SelectGroup((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
                     default:
                         if (args.Event.Action.StartsWith(BaseUuid + ".open"))
                         {
@@ -628,17 +648,7 @@ namespace FreestylerRemote
                             OpenPanel(panel);
                         }
 
-                        if (args.Event.Action.StartsWith(BaseUuid + ".togglesequence"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglesequence", ""));
-                            ToggleSequence(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".cuelisttab"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
-                            SelectCueListTab(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".togglecuelist"))
+                        if (args.Event.Action.StartsWith(BaseUuid + ".togglecuelist"))
                         {
                             int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglecuelist", ""));
                             ToggleCueList(num);
@@ -648,16 +658,7 @@ namespace FreestylerRemote
                             int num = Int32.Parse(args.Event.Action.Last().ToString());
                             SelectOverrideTab(num);
                         }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".override"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".override", ""));
-                            ToggleOverride(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".group"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".group", ""));
-                            SelectGroup(num);
-                        }
+                        
                         break;
                 }
             };
@@ -665,14 +666,19 @@ namespace FreestylerRemote
             connection.OnSendToPlugin += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App SendToPlugin");
+                
             };
 
-            Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
-            
             connection.OnWillAppear += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App OnWillAppear");
+                connection.GetSettingsAsync(args.Event.Context);
+            };
 
+            connection.OnPropertyInspectorDidAppear += (sender, args) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Property Inspector Did Appear");
+                connection.GetSettingsAsync(args.Event.Context);
             };
 
             connection.OnDidReceiveSettings += (sender, args) =>
@@ -697,8 +703,67 @@ namespace FreestylerRemote
                             }
                         }
                         break;
-                }
+                    case BaseUuid + ".togglesequence":
+                        lock (settings)
+                        {
+                            settings[args.Event.Context] = args.Event.Payload.Settings;
+                            if (settings[args.Event.Context] == null)
+                            {
+                                settings[args.Event.Context] = new JObject();
+                            }
 
+                            if (settings[args.Event.Context]["selectedValue"] == null)
+                            {
+                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
+                            }
+                        }
+                        break;
+                    case BaseUuid + ".selectcuelisttab":
+                        lock (settings)
+                        {
+                            settings[args.Event.Context] = args.Event.Payload.Settings;
+                            if (settings[args.Event.Context] == null)
+                            {
+                                settings[args.Event.Context] = new JObject();
+                            }
+
+                            if (settings[args.Event.Context]["selectedValue"] == null)
+                            {
+                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
+                            }
+                        }
+                        break;
+                    case BaseUuid + ".toggleoverride":
+                        lock (settings)
+                        {
+                            settings[args.Event.Context] = args.Event.Payload.Settings;
+                            if (settings[args.Event.Context] == null)
+                            {
+                                settings[args.Event.Context] = new JObject();
+                            }
+
+                            if (settings[args.Event.Context]["selectedValue"] == null)
+                            {
+                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
+                            }
+                        }
+                        break;
+                    case BaseUuid + ".selectgroup":
+                        lock (settings)
+                        {
+                            settings[args.Event.Context] = args.Event.Payload.Settings;
+                            if (settings[args.Event.Context] == null)
+                            {
+                                settings[args.Event.Context] = new JObject();
+                            }
+
+                            if (settings[args.Event.Context]["selectedValue"] == null)
+                            {
+                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
+                            }
+                        }
+                        break;
+                }
             };
 
             connection.OnWillDisappear += (sender, args) =>
@@ -721,10 +786,11 @@ namespace FreestylerRemote
             // Wait for up to 10 seconds to connect
             if (connectEvent.WaitOne(TimeSpan.FromSeconds(10)))
             {
+
                 // We connected, loop every second until we disconnect
                 while (!disconnectEvent.WaitOne(TimeSpan.FromMilliseconds(1000)))
                 {
-                    
+
                 }
             }
         }

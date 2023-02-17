@@ -641,22 +641,19 @@ namespace FreestylerRemote
                         SelectGroup((int)settings[args.Event.Context]["selectedValue"]);
                         break;
 
+                    case BaseUuid + ".togglecuelist":
+                        ToggleCueList((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".toggleoverridetab":
+                        SelectOverrideTab((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
                     default:
                         if (args.Event.Action.StartsWith(BaseUuid + ".open"))
                         {
                             string panel = args.Event.Action.Replace(BaseUuid + ".open", "");
                             OpenPanel(panel);
-                        }
-
-                        if (args.Event.Action.StartsWith(BaseUuid + ".togglecuelist"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglecuelist", ""));
-                            ToggleCueList(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".overridetab"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
-                            SelectOverrideTab(num);
                         }
                         
                         break;
@@ -704,51 +701,11 @@ namespace FreestylerRemote
                         }
                         break;
                     case BaseUuid + ".togglesequence":
-                        lock (settings)
-                        {
-                            settings[args.Event.Context] = args.Event.Payload.Settings;
-                            if (settings[args.Event.Context] == null)
-                            {
-                                settings[args.Event.Context] = new JObject();
-                            }
-
-                            if (settings[args.Event.Context]["selectedValue"] == null)
-                            {
-                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
-                            }
-                        }
-                        break;
                     case BaseUuid + ".selectcuelisttab":
-                        lock (settings)
-                        {
-                            settings[args.Event.Context] = args.Event.Payload.Settings;
-                            if (settings[args.Event.Context] == null)
-                            {
-                                settings[args.Event.Context] = new JObject();
-                            }
-
-                            if (settings[args.Event.Context]["selectedValue"] == null)
-                            {
-                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
-                            }
-                        }
-                        break;
                     case BaseUuid + ".toggleoverride":
-                        lock (settings)
-                        {
-                            settings[args.Event.Context] = args.Event.Payload.Settings;
-                            if (settings[args.Event.Context] == null)
-                            {
-                                settings[args.Event.Context] = new JObject();
-                            }
-
-                            if (settings[args.Event.Context]["selectedValue"] == null)
-                            {
-                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
-                            }
-                        }
-                        break;
                     case BaseUuid + ".selectgroup":
+                    case BaseUuid + ".togglecuelist":
+                    case BaseUuid + ".toggleoverridetab":
                         lock (settings)
                         {
                             settings[args.Event.Context] = args.Event.Payload.Settings;

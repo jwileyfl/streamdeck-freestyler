@@ -76,7 +76,7 @@ namespace FreestylerRemote
 
             StreamDeckConnection connection = new StreamDeckConnection(options.Port, options.PluginUUID, options.RegisterEvent);
             Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
-            
+            List<string> statusList = new List<string>();
             connection.OnConnected += (sender, args) =>
             {
                 connectEvent.Set();
@@ -90,6 +90,11 @@ namespace FreestylerRemote
             connection.OnApplicationDidLaunch += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App Launch: {args.Event.Payload.Application}");
+                
+                for (int i = 1; i < 24; i++)
+                {
+                    statusList.Add(GetStatus(i));
+                }
             };
 
             connection.OnApplicationDidTerminate += (sender, args) =>
@@ -945,6 +950,35 @@ namespace FreestylerRemote
             {
                 client.Disconnect();
             }
+        }
+
+        static string GetStatus(int item)
+        {
+            string resp = "";
+            List<string> itemList = new List<string>()
+            {
+                "0", "001", "002", "003", "004", "005", "006", "007", "008", "009", "010",
+                "011", "012", "013", "014", "015", "016", "017", "018", "019", "020", "021",
+                "022", "023"
+            };
+            TCPClient client = new TCPClient();
+
+            try
+            {
+                client.Connect();
+                resp = client.Query(itemList[item]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+
+            return resp;
         }
     }
 }

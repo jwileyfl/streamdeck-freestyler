@@ -7,11 +7,13 @@ using streamdeck_client_csharp.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Net.Mime;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -73,7 +75,8 @@ namespace FreestylerRemote
             ManualResetEvent disconnectEvent = new ManualResetEvent(false);
 
             StreamDeckConnection connection = new StreamDeckConnection(options.Port, options.PluginUUID, options.RegisterEvent);
-
+            Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
+            List<string> statusList = new List<string>();
             connection.OnConnected += (sender, args) =>
             {
                 connectEvent.Set();
@@ -87,6 +90,11 @@ namespace FreestylerRemote
             connection.OnApplicationDidLaunch += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App Launch: {args.Event.Payload.Application}");
+                
+                for (int i = 1; i < 24; i++)
+                {
+                    statusList.Add(GetStatus(i));
+                }
             };
 
             connection.OnApplicationDidTerminate += (sender, args) =>
@@ -621,43 +629,38 @@ namespace FreestylerRemote
                             client.Disconnect();
                         }
                         break;
+                    case BaseUuid + ".togglesequence":
+
+                        ToggleSequence((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".selectcuelisttab":
+                        SelectCueListTab((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".toggleoverride":
+                        ToggleOverride((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+                    
+                    case BaseUuid + ".selectgroup":
+                        SelectGroup((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".togglecuelist":
+                        ToggleCueList((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
+                    case BaseUuid + ".toggleoverridetab":
+                        SelectOverrideTab((int)settings[args.Event.Context]["selectedValue"]);
+                        break;
+
                     default:
                         if (args.Event.Action.StartsWith(BaseUuid + ".open"))
                         {
                             string panel = args.Event.Action.Replace(BaseUuid + ".open", "");
                             OpenPanel(panel);
                         }
-
-                        if (args.Event.Action.StartsWith(BaseUuid + ".togglesequence"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglesequence", ""));
-                            ToggleSequence(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".cuelisttab"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
-                            SelectCueListTab(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".togglecuelist"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".togglecuelist", ""));
-                            ToggleCueList(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".overridetab"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Last().ToString());
-                            SelectOverrideTab(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".override"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".override", ""));
-                            ToggleOverride(num);
-                        }
-                        else if (args.Event.Action.StartsWith(BaseUuid + ".group"))
-                        {
-                            int num = Int32.Parse(args.Event.Action.Replace(BaseUuid + ".group", ""));
-                            SelectGroup(num);
-                        }
+                        
                         break;
                 }
             };
@@ -665,14 +668,19 @@ namespace FreestylerRemote
             connection.OnSendToPlugin += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App SendToPlugin");
+                
             };
 
-            Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
-            
             connection.OnWillAppear += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App OnWillAppear");
+                connection.GetSettingsAsync(args.Event.Context);
+            };
 
+            connection.OnPropertyInspectorDidAppear += (sender, args) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Property Inspector Did Appear");
+                connection.GetSettingsAsync(args.Event.Context);
             };
 
             connection.OnDidReceiveSettings += (sender, args) =>
@@ -697,8 +705,27 @@ namespace FreestylerRemote
                             }
                         }
                         break;
-                }
+                    case BaseUuid + ".togglesequence":
+                    case BaseUuid + ".selectcuelisttab":
+                    case BaseUuid + ".toggleoverride":
+                    case BaseUuid + ".selectgroup":
+                    case BaseUuid + ".togglecuelist":
+                    case BaseUuid + ".toggleoverridetab":
+                        lock (settings)
+                        {
+                            settings[args.Event.Context] = args.Event.Payload.Settings;
+                            if (settings[args.Event.Context] == null)
+                            {
+                                settings[args.Event.Context] = new JObject();
+                            }
 
+                            if (settings[args.Event.Context]["selectedValue"] == null)
+                            {
+                                settings[args.Event.Context]["selectedValue"] = JValue.CreateString("1");
+                            }
+                        }
+                        break;
+                }
             };
 
             connection.OnWillDisappear += (sender, args) =>
@@ -721,10 +748,11 @@ namespace FreestylerRemote
             // Wait for up to 10 seconds to connect
             if (connectEvent.WaitOne(TimeSpan.FromSeconds(10)))
             {
+
                 // We connected, loop every second until we disconnect
                 while (!disconnectEvent.WaitOne(TimeSpan.FromMilliseconds(1000)))
                 {
-                    
+
                 }
             }
         }
@@ -922,6 +950,35 @@ namespace FreestylerRemote
             {
                 client.Disconnect();
             }
+        }
+
+        static string GetStatus(int item)
+        {
+            string resp = "";
+            List<string> itemList = new List<string>()
+            {
+                "0", "001", "002", "003", "004", "005", "006", "007", "008", "009", "010",
+                "011", "012", "013", "014", "015", "016", "017", "018", "019", "020", "021",
+                "022", "023"
+            };
+            TCPClient client = new TCPClient();
+
+            try
+            {
+                client.Connect();
+                resp = client.Query(itemList[item]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+
+            return resp;
         }
     }
 }

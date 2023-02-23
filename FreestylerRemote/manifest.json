@@ -271,11 +271,11 @@
       "UUID": "com.resnexsoft.freestyler.remote.openframing"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionOverridePanel",
       "Name": "Open Override Panel",
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyOverridePanel",
           "Title": "Open OvrRd",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -286,11 +286,11 @@
       "UUID": "com.resnexsoft.freestyler.remote.openoverride"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionMasterPanel",
       "Name": "Open Master Panel",
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyMasterPanel",
           "Title": "Open Master",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -301,11 +301,11 @@
       "UUID": "com.resnexsoft.freestyler.remote.openmaster"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionSubMasterPanel",
       "Name": "Open SubMaster Panel",
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keySubMasterPanel",
           "Title": "Open Sub",
           "TitleAlignment": "bottom",
           "FontSize": "9"

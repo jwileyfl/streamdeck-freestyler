@@ -5,7 +5,10 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreestylerRemote", "FreestylerRemote\FreestylerRemote.csproj", "{E8566BF3-AEFC-45F4-91EB-D1314DDF4B7A}"
 EndProject
-Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Install", "Install\Install.wixproj", "{497E0046-D50B-4A97-86C7-0A98F2328D94}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Install", "Install\Install.wixproj", "{497E0046-D50B-4A97-86C7-0A98F2328D94}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E8566BF3-AEFC-45F4-91EB-D1314DDF4B7A} = {E8566BF3-AEFC-45F4-91EB-D1314DDF4B7A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

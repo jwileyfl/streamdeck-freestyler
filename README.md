@@ -28,5 +28,23 @@ Link to online reference for stream deck plugin development: https://developer.e
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 [![NuGet version (Newtonsoft.Json)](https://img.shields.io/nuget/v/Newtonsoft.Json.svg?style=plastic-square)](https://www.nuget.org/packages/Newtonsoft.Json)
 
+# Installation
+### Windows Commandline:
+1. Download the MSI *(Install.msi)*
+2. Open a console window and navigate to the folder where the MSI file resides
+3. Execute the following command:
+   ```bat
+   msiexec /i Install.msi
+   ```
+### Windows Explorer:
+
+1. Download the MSI *(Install.msi)*
+2. Navigate to the folder where the MSI file resides, and double click to install
+
+### Alternatively:
+
+1. Download the streamdeck plugin file *(com.resnexsoft.freestyler.remote.streamDeckPlugin)*
+2. Navigate to the folder where the streamdeck plugin file is located, and double click to install
+
 # Screenshot
 ![StreamDeck Screenshot](https://github.com/jwileyfl/streamdeck-freestyler/blob/main/StreamDeckScreenshot.png?raw=true)

@@ -1,5 +1,5 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
-    <Package Name="FreestylerRemote" Language="1033" Version="1.0.0.0" Manufacturer="Resnexsoft" UpgradeCode="02135bfc-7d4b-45c2-8674-509aad83abe1" InstallerVersion="200" Scope="perUser">
+    <Package Name="FreestylerRemote" Language="1033" Version="1.0.1.0" Manufacturer="Resnexsoft" UpgradeCode="02135bfc-7d4b-45c2-8674-509aad83abe1" InstallerVersion="200" Scope="perUser">
         
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
         
@@ -8,7 +8,7 @@
         </Feature>
         <UI />
         <Binary Id="plugin" SourceFile="..\FreestylerRemote\DistributionPackage\com.resnexsoft.freestyler.remote.streamDeckPlugin" />
-        <CustomAction Id="INSTALL_PLUGIN" Directory="INSTALLFOLDER" Execute="immediate" Impersonate="yes" Return="check" ExeCommand="[ProgramFiles64Folder]\Elgato\StreamDeck\StreamDeck.exe [INSTALLFOLDER]com.resnexsoft.freestyler.remote.streamDeckPlugin" />
+        <CustomAction Id="INSTALL_PLUGIN" Directory="INSTALLFOLDER" Execute="immediate" Impersonate="yes" Return="check" ExeCommand="&quot;[ProgramFiles64Folder]Elgato\StreamDeck\StreamDeck.exe&quot; &quot;[INSTALLFOLDER]com.resnexsoft.freestyler.remote.streamDeckPlugin&quot;" />
 
         <InstallExecuteSequence>
             <Custom Action="INSTALL_PLUGIN" After="InstallFinalize" Condition="NOT Installed" />

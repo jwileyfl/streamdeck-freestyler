@@ -1,34 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="FreestylerRemote" Language="1033" Version="1.0.0.0" Manufacturer="Resnexsoft" UpgradeCode="02135bfc-7d4b-45c2-8674-509aad83abe1">
-        <Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" InstallPrivileges="limited" />
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Name="FreestylerRemote" Language="1033" Version="1.0.0.0" Manufacturer="Resnexsoft" UpgradeCode="02135bfc-7d4b-45c2-8674-509aad83abe1" InstallerVersion="200" Scope="perUser">
+        
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-        <MediaTemplate />
+        
         <Feature Id="ProductFeature" Title="Install" Level="1">
             <ComponentGroupRef Id="ProductComponents" />
         </Feature>
         <UI />
         <Binary Id="plugin" SourceFile="..\FreestylerRemote\DistributionPackage\com.resnexsoft.freestyler.remote.streamDeckPlugin" />
-		<CustomAction Id="INSTALL_PLUGIN" Directory="TEMP" Execute="immediate" Impersonate="yes" Return="check" ExeCommand="[ProgramFiles64Folder]\Elgato\StreamDeck\StreamDeck.exe [TEMP]\com.resnexsoft.freestyler.remote.streamDeckPlugin" />
+        <CustomAction Id="INSTALL_PLUGIN" Directory="INSTALLFOLDER" Execute="immediate" Impersonate="yes" Return="check" ExeCommand="[ProgramFiles64Folder]\Elgato\StreamDeck\StreamDeck.exe [INSTALLFOLDER]com.resnexsoft.freestyler.remote.streamDeckPlugin" />
 
-	    <InstallExecuteSequence>
-            <Custom Action="INSTALL_PLUGIN" After="InstallFinalize">NOT Installed</Custom>
+        <InstallExecuteSequence>
+            <Custom Action="INSTALL_PLUGIN" After="InstallFinalize" Condition="NOT Installed" />
         </InstallExecuteSequence>
-    </Product>
+    </Package>
     <Fragment>
-        <Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="LocalAppDataFolder">
-				<Directory Id="TEMP" Name="Temp"/>
-			</Directory>
-		</Directory>
-    </Fragment>
+            <StandardDirectory Id="TempFolder">
+                <Directory Id="INSTALLFOLDER" Name="!(bind.Property.Manufacturer) !(bind.Property.ProductName)" />
+            </StandardDirectory>
+        </Fragment>
     <Fragment>
-        <ComponentGroup Id="ProductComponents" Directory="TEMP">
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
             <Component Id="ProductComponent" Guid="4912E34C-32D6-41BB-BA6E-91849929E284">
-				<RegistryValue Root="HKCU" Key="Software\Resnexsoft\FreestylerRemote" Type="string" Value="4912E34C-32D6-41BB-BA6E-91849929E284" KeyPath="yes" />
-				<RemoveFile Id="PLUGIN" Name="Plugin" On="uninstall" />
-				<RemoveFolder Id="TEMP" On="uninstall" />
-				<File Id ="PLUGIN" Source="..\FreestylerRemote\DistributionPackage\com.resnexsoft.freestyler.remote.streamDeckPlugin"/>
+                <RegistryValue Root="HKCU" Key="Software\Resnexsoft\FreestylerRemote" Type="string" Value="4912E34C-32D6-41BB-BA6E-91849929E284" KeyPath="yes" />
+                <RemoveFile Id="PLUGIN" Name="com.resnexsoft.freestyler.remote.streamDeckPlugin" On="uninstall" />
+                <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />
+                <File Id="PLUGIN" Source="..\FreestylerRemote\DistributionPackage\com.resnexsoft.freestyler.remote.streamDeckPlugin" />
             </Component>
         </ComponentGroup>
     </Fragment>

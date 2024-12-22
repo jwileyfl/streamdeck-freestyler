@@ -990,7 +990,7 @@
   "Icon": "Images/categoryimage",
   "URL": "https://github.com/jwileyfl/streamdeck-freestyler",
   "UUID": "com.resnexsoft.freestyler.remote",
-  "Version": "1.0.1.0",
+  "Version": "1.1.0.0",
   "CodePath": "FreestylerRemote",
   "Category": "Freestyler",
   "CategoryIcon": "Images/categoryimage",

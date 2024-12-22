@@ -16,5 +16,9 @@ IF EXIST %TGT%\ (
     MD %TGT%
 )
 
+IF NOT EXIST bin\ (
+	MD bin
+)
+
 ECHO DistributionTool.exe -b -i bin\%BUILD%\com.resnexsoft.freestyler.remote.sdPlugin -o %TGT%
 DistributionTool.exe -b -i bin\%BUILD%\com.resnexsoft.freestyler.remote.sdPlugin -o %TGT%

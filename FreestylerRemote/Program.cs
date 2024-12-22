@@ -24,6 +24,11 @@
     internal class Program
     {
         private const string BaseUuid = "com.resnexsoft.freestyler.remote";
+        private const string On = "255";
+        private const string Off = "000";
+        private const string Toggle = "255";
+        private List<Tuple<string, string>> commands = new List<Tuple<string, string>>();
+
         public class Options
         {
             [Option("port", Required = true, HelpText = "The websocket port to connect to", SetName = "port")]
@@ -44,8 +49,9 @@
         private static void Main(string[] args)
         {
             // Uncomment this line of code to allow for debugging
-            //while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
-
+#if DEBUG
+            while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
+#endif
             // The command line args parser expects all args to use `--`, so, let's append
             for (int count = 0; count < args.Length; count++)
             {
@@ -91,10 +97,6 @@
             {
                 System.Diagnostics.Debug.WriteLine($"App Launch: {args.Event.Payload.Application}");
                 
-                for (int i = 1; i < 24; i++)
-                {
-                    statusList.Add(await GetStatus(i));
-                }
             };
 
             connection.OnApplicationDidTerminate += (sender, args) =>
@@ -129,548 +131,9 @@
 
             connection.OnKeyUp += async (sender, args) =>
             {
-                System.Diagnostics.Debug.WriteLine($"App KeyUp: {args.Event.Action}");
+                System.Diagnostics.Debug.WriteLine($"App KeyUp: {args.Event.Action}, {args.Event.Context}");
 
-                switch (args.Event.Action)
-                {
-                    case BaseUuid + ".blackout":
-                        client = new AsyncTcpClient();
-
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("002", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".releaseall":
-                        client = new AsyncTcpClient();
-
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("024", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".fog":
-                        client = new AsyncTcpClient(); 
-                        
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("176", "255");
-                            await client.SendAsync("176", "000");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".foglevel":
-                        // TODO:  get value 0 - 255 from prop insp
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("304", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".fogfanspeed":
-                        // TODO:  get value 0 - 255 from prop insp
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("305", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".master100":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("151", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-
-                        break;
-                    case BaseUuid + ".master0":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("152", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-
-                        break;
-                    case BaseUuid + ".fadein":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("153", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-
-                        break;
-                    case BaseUuid + ".fadeout":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("154", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-
-                        break;
-                    case BaseUuid + ".playSequence":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("577", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".nextscene":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("575", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".prevscene":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("576", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".dmx400mode":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("564", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".dmx400blackout":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("310", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".dmx400Full":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("311", "255");
-                            await client.SendAsync("311","000");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".dmx400fade":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("312", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".dmx400autochange":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("315", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".dmx400colorchange":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("316", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".tapsync":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("009", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".mantrig":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("207", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".soundtolighttrigger":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("232", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".tapsyncdisable":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("134", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".prevgroup":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("296", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".nextgroup":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("297", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".prevoverridetab":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("298", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".nextoverridetab":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("299", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".disableoverrides":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("265", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".prevcuelisttab":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("300", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".nextcuelisttab":
-                        client = new AsyncTcpClient();
-                        try
-                        {
-                            await client.ConnectAsync();
-                            await client.SendAsync("301", "255");
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            throw;
-                        }
-                        finally
-                        {
-                            client.Disconnect();
-                        }
-                        break;
-                    case BaseUuid + ".togglesequence":
-
-                        await ToggleSequence((int)settings[args.Event.Context]["selectedValue"]);
-                        break;
-
-                    case BaseUuid + ".selectcuelisttab":
-                        await SelectCueListTab((int)settings[args.Event.Context]["selectedValue"]);
-                        break;
-
-                    case BaseUuid + ".toggleoverride":
-                        await ToggleOverride((int)settings[args.Event.Context]["selectedValue"]);
-                        break;
-                    
-                    case BaseUuid + ".selectgroup":
-                        await SelectGroup((int)settings[args.Event.Context]["selectedValue"]);
-                        break;
-
-                    case BaseUuid + ".togglecuelist":
-                        await ToggleCueList((int)settings[args.Event.Context]["selectedValue"]);
-                        break;
-
-                    case BaseUuid + ".toggleoverridetab":
-                        await SelectOverrideTab((int)settings[args.Event.Context]["selectedValue"]);
-                        break;
-
-                    default:
-                        if (args.Event.Action.StartsWith(BaseUuid + ".open"))
-                        {
-                            string panel = args.Event.Action.Replace(BaseUuid + ".open", "");
-                            await OpenPanel(panel);
-                        }
-                        
-                        break;
-                }
+                await HandleKeyUp(args.Event.Action, settings, args.Event.Context);
             };
 
             connection.OnSendToPlugin += (sender, args) =>
@@ -717,6 +180,7 @@
                     case BaseUuid + ".selectcuelisttab":
                     case BaseUuid + ".toggleoverride":
                     case BaseUuid + ".selectgroup":
+                    case BaseUuid + ".blackoutgroup":
                     case BaseUuid + ".togglecuelist":
                     case BaseUuid + ".toggleoverridetab":
                         lock (settings)
@@ -756,6 +220,14 @@
             // Wait for up to 10 seconds to connect
             if (connectEvent.WaitOne(TimeSpan.FromSeconds(10)))
             {
+                // Check if Freestyler is running, and get the status of all items if so
+                if (System.Diagnostics.Process.GetProcessesByName("FreestylerX2").Length > 0)
+                {
+                    for (int i = 1; i < 24; i++)
+                    {
+                        // statusList.Add(await GetStatus(i));
+                    }
+                }
 
                 // We connected, loop every second until we disconnect
                 while (!disconnectEvent.WaitOne(TimeSpan.FromMilliseconds(1000)))
@@ -765,26 +237,19 @@
             }
         }
 
-        private static async Task OpenPanel(string panel)
+        private static async Task SendTcpCommand(List<Tuple<string, string>> commands)
         {
-            Dictionary<string, string> panelDict = new Dictionary<string, string>()
-            {
-                {"all", "569"}, {"gobo", "003"}, {"color", "004"}, {"pantilt", "005"}, {"beam", "006"}, {"macro", "007"}, {"dmx400", "008"},
-                {"lamp", "010"}, {"createsequence", "011"}, {"cue", "012"}, {"sound", "013"}, {"output", "014"}, {"framing", "029"},
-                {"override", "570"}, {"master", "572"}, {"submaster", "573"}, {"smoke", "574"}, {"fx", "581"}, {"cuelist", "670"}
-            };
-
-            if (!panelDict.ContainsKey(panel))
-            {
-                return;
-            }
-
             AsyncTcpClient client = new AsyncTcpClient();
 
             try
             {
-                await client.ConnectAsync();
-                await client.SendAsync(panelDict[panel], "255");
+                if (await client.ConnectAsync())
+                {
+                    foreach (var command in commands)
+                    {
+                        await client.SendAsync(command.Item1, command.Item2);
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -795,6 +260,202 @@
             {
                 client.Disconnect();
             }
+        }
+        
+        private static async Task HandleKeyUp(string action, Dictionary<string, JObject> settings, string context)
+        {
+            
+            switch (action)
+            {
+                case BaseUuid + ".toggleall":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("000", Toggle) });
+                    break;
+                
+                case BaseUuid + ".togglefavorite":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("001", Toggle) });
+                    break;
+
+                case BaseUuid + ".blackout":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("002", Toggle) });
+                    break;
+
+                case BaseUuid + ".freeze":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("123", Toggle) });
+                    break;
+
+                case BaseUuid + ".releaseall":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("024", Toggle) });
+                    break;
+
+                case BaseUuid + ".fog":
+                    // This one is a momentary button, so it will need a short delay to turn off
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("176", On), new Tuple<string, string>("176", Off) });
+                    break;
+
+                case BaseUuid + ".foglevel":
+                    // TODO:  get value 0 - 255 from prop insp
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("304", Toggle) });
+                    break;
+
+                case BaseUuid + ".fogfanspeed":
+                    // TODO:  get value 0 - 255 from prop insp
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("305", Toggle) });
+                    break;
+
+                case BaseUuid + ".lockmidi":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("181", Toggle) });
+                    break;
+
+                case BaseUuid + ".master100":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("151", Toggle) });
+                    break;
+
+                case BaseUuid + ".master0":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("152", Toggle) });
+                    break;
+
+                case BaseUuid + ".fadein":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("153", Toggle) });
+                    break;
+
+                case BaseUuid + ".fadeout":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("154", Toggle) });
+                    break;
+
+                case BaseUuid + ".playSequence":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("577", Toggle) });
+                    break;
+
+                case BaseUuid + ".nextscene":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("575", Toggle) });
+                    break;
+
+                case BaseUuid + ".prevscene":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("576", Toggle) });
+                    break;
+
+                case BaseUuid + ".dmx400mode":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("564", Toggle) });
+                    break;
+
+                case BaseUuid + ".dmx400blackout":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("310", Toggle) });
+                    break;
+
+                case BaseUuid + ".dmx400Full":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("311", On), new Tuple<string, string>("311", Off) });
+                    break;
+
+                case BaseUuid + ".dmx400fade":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("312", Toggle) });
+                    break;
+
+                case BaseUuid + ".dmx400autochange":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("315", Toggle) });
+                    break;
+
+                case BaseUuid + ".dmx400colorchange":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("316", Toggle) });
+                    break;
+
+                case BaseUuid + ".tapsync":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("009", Toggle) });
+                    break;
+
+                case BaseUuid + ".mantrig":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("207", Toggle) });
+                    break;
+
+                case BaseUuid + ".soundtolighttrigger":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("232", Toggle) });
+                    break;
+
+                case BaseUuid + ".tapsyncdisable":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("134", Toggle) });
+                    break;
+
+                case BaseUuid + ".prevgroup":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("296", Toggle) });
+                    break;
+
+                case BaseUuid + ".nextgroup":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("297", Toggle) });
+                    break;
+
+                case BaseUuid + ".prevoverridetab":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("298", Toggle) });
+                    break;
+
+                case BaseUuid + ".nextoverridetab":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("299", Toggle) });
+                    break;
+
+                case BaseUuid + ".disableoverrides":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("265", Toggle) });
+                    break;
+
+                case BaseUuid + ".prevcuelisttab":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("300", Toggle) });
+                    break;
+
+                case BaseUuid + ".nextcuelisttab":
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("301", Toggle) });
+                    break;
+
+                case BaseUuid + ".togglesequence":
+                    await ToggleSequence((int)settings[context]["selectedValue"]);
+                    break;
+
+                case BaseUuid + ".selectcuelisttab":
+                    await SelectCueListTab((int)settings[context]["selectedValue"]);
+                    break;
+
+                case BaseUuid + ".toggleoverride":
+                    await ToggleOverride((int)settings[context]["selectedValue"]);
+                    break;
+
+                case BaseUuid + ".selectgroup":
+                    await SelectGroup((int)settings[context]["selectedValue"]);
+                    break;
+
+                case BaseUuid + ".blackoutgroup":
+                    await BlackoutGroup((int)settings[context]["selectedValue"]);
+                    break;
+
+                case BaseUuid + ".togglecuelist":
+                    await ToggleCueList((int)settings[context]["selectedValue"]);
+                    break;
+
+                case BaseUuid + ".toggleoverridetab":
+                    await SelectOverrideTab((int)settings[context]["selectedValue"]);
+                    break;
+
+                default:
+                    if (action.StartsWith(BaseUuid + ".open"))
+                    {
+                        string panel = action.Replace(BaseUuid + ".open", "");
+                        await OpenPanel(panel);
+                    }
+
+                    break;
+            }
+        }
+
+        private static async Task OpenPanel(string panel)
+        {
+            Dictionary<string, string> panelDict = new Dictionary<string, string>()
+            {
+                {"all", "569"}, {"gobo", "003"}, {"color", "004"}, {"pantilt", "005"}, {"beam", "006"}, {"macro", "007"}, {"dmx400", "008"},
+                {"lamp", "010"}, {"createsequence", "011"}, {"cue", "012"}, {"sound", "013"}, {"output", "014"}, {"framing", "029"},
+                {"override", "570"}, {"master", "572"}, {"submaster", "573"}, {"smoke", "574"}, {"sliders", "015"}, {"fx", "581"}, {"cuelist", "670"}
+            };
+
+            if (!panelDict.ContainsKey(panel))
+            {
+                return;
+            }
+
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(panelDict[panel], Toggle) });
         }
 
         private static async Task ToggleSequence(int seqNumber)
@@ -806,22 +467,8 @@
         
             List<string> sequence = new List<string>() {"0", "046", "047", "048", "049", "050", "051", "052", "053", "054", "055",
                                                         "056", "057", "058", "059", "060", "061", "062", "063", "064", "065"};
-            AsyncTcpClient client = new AsyncTcpClient();
 
-            try
-            {
-                await client.ConnectAsync();
-                await client.SendAsync(sequence[seqNumber], "255");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(sequence[seqNumber], Toggle) });
         }
 
         private static async Task SelectCueListTab(int cueListTab)
@@ -832,22 +479,8 @@
             }
 
             List<string> cueListTabList = new List<string>() { "0", "266", "267", "268", "269", "270", "271" };
-            AsyncTcpClient client = new AsyncTcpClient();
 
-            try
-            {
-                await client.ConnectAsync();
-                await client.SendAsync(cueListTabList[cueListTab], "255");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueListTabList[cueListTab], Toggle) });
         }
 
         private static async Task ToggleCueList(int cueListNumber)
@@ -860,22 +493,8 @@
             List<string> cueList = new List<string>() {"0", "272", "273", "274", "275", "276", "277", "278", "279", "280", "281",
                 "282", "283", "284", "285", "286", "287", "671", "672", "673", "674", "675", "676", "677", "678", "679", "680",
                 "681", "682", "683", "684", "685", "686"};
-            AsyncTcpClient client = new AsyncTcpClient();
 
-            try
-            {
-                await client.ConnectAsync();
-                await client.SendAsync(cueList[cueListNumber], "255");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueList[cueListNumber], Toggle) });
         }
 
         private static async Task ToggleOverride(int overrideButton)
@@ -888,23 +507,8 @@
             List<string> overrideList = new List<string>() {"0", "066", "067", "068", "069", "070", "071", "072", "073", "074", "075",
                 "076", "077", "078", "079", "080", "081", "082", "083", "084", "085", "086", "087", "088", "089", "090", "091", "092",
                 "093", "094", "095", "096", "097"};
-            AsyncTcpClient client = new AsyncTcpClient();
 
-            try
-            {
-                await client.ConnectAsync();
-                await client.SendAsync(overrideList[overrideButton], "255");
-                await client.SendAsync(overrideList[overrideButton], "000");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideList[overrideButton], On), new Tuple<string, string>(overrideList[overrideButton], Off) });
         }
 
         private static async Task SelectOverrideTab(int overrideTab)
@@ -915,22 +519,8 @@
             }
 
             List<string> overrideTabList = new List<string>() { "0", "234", "235", "236", "237", "238", "239" };
-            AsyncTcpClient client = new AsyncTcpClient();
 
-            try
-            {
-                await client.ConnectAsync();
-                await client.SendAsync(overrideTabList[overrideTab], "255");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideTabList[overrideTab], Toggle) });
         }
 
         private static async Task SelectGroup(int groupNumber)
@@ -942,22 +532,21 @@
 
             List<string> groupList = new List<string>() {"0", "034", "035", "036", "037", "038", "039", "040", "041", "042", "043",
                 "550", "551", "552", "553", "554", "555", "556", "557", "558", "559", "560", "561", "562", "563"};
-            AsyncTcpClient client = new AsyncTcpClient();
 
-            try
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
+        }
+
+        private static async Task BlackoutGroup(int groupNumber)
+        {
+            if (groupNumber < 1 || groupNumber > 24)
             {
-                await client.ConnectAsync();
-                await client.SendAsync(groupList[groupNumber], "255");
+                return;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+
+            List<string> groupList = new List<string>() {"0", "098", "099", "100", "101", "102", "103", "104", "105", "106", "107",
+                                                            "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121"};
+
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
         }
 
         private static async Task<string> GetStatus(int item)
@@ -969,12 +558,16 @@
                 "011", "012", "013", "014", "015", "016", "017", "018", "019", "020", "021",
                 "022", "023"
             };
+
             AsyncTcpClient client = new AsyncTcpClient();
 
             try
             {
-                await client.ConnectAsync();
-                resp = await client.QueryAsync(itemList[item]);
+                if (await client.ConnectAsync())
+                {
+                    resp = await client.QueryAsync(itemList[item]);
+                }
+                
             }
             catch (Exception e)
             {

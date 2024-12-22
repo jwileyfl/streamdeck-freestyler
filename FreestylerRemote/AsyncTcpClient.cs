@@ -33,11 +33,17 @@
             }
         }
 
-        public async Task ConnectAsync(CancellationToken cancellationToken = default)
+        public async Task<bool> ConnectAsync(CancellationToken cancellationToken = default)
         {
             try
             {
                 await this._client.ConnectAsync(FreestylerIp, FreestylerPort);
+                
+                if (!this._client.Connected)
+                {
+                    return false;
+                }
+
                 this._clientStream = this._client.GetStream();
                 this._clientStream.ReadTimeout = 2000;
             }
@@ -46,6 +52,8 @@
                 Console.WriteLine(e);
                 throw;
             }
+
+            return true;
         }
 
         public void Disconnect(CancellationToken cancellationToken = default)
@@ -181,36 +189,43 @@
             // F, S, B, C, #, #, #, 0, 0, 0
             // byte[] buffer = { 70, 83, 66, 67, cmd1, cmd2, cmd3, 0, 0, 0};
             byte[] buffer = Encoding.ASCII.GetBytes(code);
-            await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
-            await this._clientStream.FlushAsync(cancellationToken);
-
-            do
-            {
-                System.Threading.Thread.Sleep(500);
-                counter++;
-            } 
-            while (!this._clientStream.DataAvailable && counter < 10);
 
             try
             {
+                await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
+                await this._clientStream.FlushAsync(cancellationToken);
+
+                do
+                {
+                    await Task.Delay(500, cancellationToken);
+                    counter++;
+                }
+                while (!this._clientStream.DataAvailable && counter < 10);
+
                 if (this._clientStream.DataAvailable)
                 {
                     int numBytes = await this._clientStream.ReadAsync(respBuffer, 0, respBuffer.Length, cancellationToken);
+
+                    // Need to look into this further to properly handle the response
                     resp = Encoding.ASCII.GetString(respBuffer, 0, numBytes);
                     resp = resp.Trim('?');
                     resp = resp.Replace("FSBC", "");
                     resp = resp.Trim();
 
-                    if (Convert.ToInt32(resp[0]) < 33 || Convert.ToInt32(resp[0]) > 126)
+                    if (int.TryParse(resp, out int result) && result < 33 || result > 126)
                     {
-                        resp = resp.Remove(0, 1);
-                    }
+                        if (Convert.ToInt32(resp[0]) < 33 || Convert.ToInt32(resp[0]) > 126)
+                        {
+                            resp = resp.Remove(0, 1);
+                        }
 
-                    if (resp.StartsWith(","))
-                    {
-                        resp = resp.Remove(0, 1);
+                        if (resp.StartsWith(","))
+                        {
+                            resp = resp.Remove(0, 1);
+                        }
                     }
                 }
+
             }
             catch (Exception e)
             {

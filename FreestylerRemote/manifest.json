@@ -17,12 +17,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.toggleall"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionFavorite",
       "Name": "Toggle Favorite Fixture(s)",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyFavorite",
           "Title": "Toggle Favorite Fixture(s)",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -49,12 +49,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.blackout"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionFreeze",
       "Name": "Toggle Freeze",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyFreeze",
           "Title": "Freeze",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -110,7 +110,8 @@
       ],
       "SupportedInMultiActions": false,
       "Tooltip": "Adjusts Fog Level in Freestyler",
-      "UUID": "com.resnexsoft.freestyler.remote.foglevel"
+      "UUID": "com.resnexsoft.freestyler.remote.foglevel",
+      "PropertyInspectorPath": "PropertyInspector/SetFogLevel/Index.html"
     },
     {
       "Icon": "Images/actionFog",
@@ -126,15 +127,16 @@
       ],
       "SupportedInMultiActions": false,
       "Tooltip": "Adjusts Fog Fan Speed in Freestyler",
-      "UUID": "com.resnexsoft.freestyler.remote.fogfanspeed"
+      "UUID": "com.resnexsoft.freestyler.remote.fogfanspeed",
+      "PropertyInspectorPath": "PropertyInspector/SetFogFanSpeed/Index.html"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionmidilock",
       "Name": "Lock MIDI Input",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keymidiLock",
           "Title": "Lock MIDI",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -161,12 +163,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.openall"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionGobo",
       "Name": "Toggle Gobo Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyGobo",
           "Title": "Toggle Gobo",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -177,12 +179,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opengobo"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionGobo",
       "Name": "Toggle Color Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyColor",
           "Title": "Toggle Color",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -225,12 +227,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.openbeam"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionMacros",
       "Name": "Toggle Macro Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyMacros",
           "Title": "Toggle Macro",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -241,12 +243,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.openmacro"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "Toggle Dmx400 Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "Toggle Dmx400",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -257,12 +259,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opendmx400"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionLamp",
       "Name": "Toggles Lamp Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyLamp",
           "Title": "Toggle Lamp",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -273,12 +275,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.openlamp"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actioncreateSequence",
       "Name": "Toggle Create Seq Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keycreateSequence",
           "Title": "Create Seq",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -289,12 +291,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opencreatesequence"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionPlaySeq",
       "Name": "Toggle Cue Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyPlaySeq",
           "Title": "Toggle Cue",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -401,12 +403,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opensubmaster"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionFog",
       "Name": "Toggle Smoke Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyFog",
           "Title": "Toggle Smoke",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -417,12 +419,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opensmoke"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionSliders",
       "Name": "Show Sliders",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keySliders",
           "Title": "Show Sliders",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -433,12 +435,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opensliders"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionFx",
       "Name": "Toggle FX Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyFx",
           "Title": "Toggle FX",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -449,12 +451,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.openfx"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionCueList",
       "Name": "Open CueList Panel",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyCueList",
           "Title": "Open CueList",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -465,12 +467,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.opencuelist"
     },
     {
-      "Icon": "Images/actionPlaySeq",
+      "Icon": "Images/actionMasterPanel",
       "Name": "Master 100%",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/keyPlaySeq",
+          "Image": "Images/keyMasterPanel",
           "Title": "Master 100%",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -481,12 +483,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.master100"
     },
     {
-      "Icon": "Images/actionPlaySeq",
+      "Icon": "Images/actionMasterPanel",
       "Name": "Master 0%",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/keyPlaySeq",
+          "Image": "Images/keyMasterPanel",
           "Title": "Master 0%",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -495,6 +497,23 @@
       "SupportedInMultiActions": false,
       "Tooltip": "Sets Master Intensity to 0% in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.master0"
+    },
+    {
+      "Icon": "Images/actionMasterPanel",
+      "Name": "Master Intensity",
+      "Controllers": [ "Keypad" ],
+      "States": [
+        {
+          "Image": "Images/keyMasterPanel",
+          "Title": "Master Intensity",
+          "TitleAlignment": "bottom",
+          "FontSize": "9"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Sets Master Intensity in Freestyler",
+      "UUID": "com.resnexsoft.freestyler.remote.masterintensity",
+      "PropertyInspectorPath": "PropertyInspector/SetMasterIntensity/Index.html"
     },
     {
       "Icon": "Images/actionFadeIn",
@@ -644,12 +663,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.nextscene"
     },
     {
-      "Icon": "Images/actionNext",
+      "Icon": "Images/actionPrev",
       "Name": "Previous Scene",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/keyNext",
+          "Image": "Images/keyPrev",
           "Title": "Prev Scene",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -660,12 +679,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.prevscene"
     },
     {
-      "Icon": "Images/actionNext",
+      "Icon": "Images/actionPrev",
       "Name": "Previous Group",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/keyNext",
+          "Image": "Images/keyPrev",
           "Title": "Prev Group",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -808,12 +827,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.disableoverrides"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "DMX400 Toggle Mode",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "DMX400 Mode",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -824,12 +843,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.dmx400mode"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "DMX400 Blackout",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "DMX400 Blackout",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -840,12 +859,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.dmx400blackout"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "DMX400 100%",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "DMX400 100%",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -856,12 +875,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.dmx400Full"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "DMX400 Fade",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "DMX400 Fade",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -872,12 +891,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.dmx400fade"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "DMX400 Auto Change",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "DMX400 Auto",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -888,12 +907,12 @@
       "UUID": "com.resnexsoft.freestyler.remote.dmx400autochange"
     },
     {
-      "Icon": "Images/action",
+      "Icon": "Images/actionDmx",
       "Name": "DMX400 Color Change",
       "Controllers": [ "Keypad" ],
       "States": [
         {
-          "Image": "Images/action",
+          "Image": "Images/keyDmx",
           "Title": "DMX400 Color",
           "TitleAlignment": "bottom",
           "FontSize": "9"
@@ -990,7 +1009,7 @@
   "Icon": "Images/categoryimage",
   "URL": "https://github.com/jwileyfl/streamdeck-freestyler",
   "UUID": "com.resnexsoft.freestyler.remote",
-  "Version": "1.1.0.0",
+  "Version": "1.2.0.0",
   "CodePath": "FreestylerRemote",
   "Category": "Freestyler",
   "CategoryIcon": "Images/categoryimage",

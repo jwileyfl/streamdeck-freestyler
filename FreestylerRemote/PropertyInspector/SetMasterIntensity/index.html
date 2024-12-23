@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
+	<meta name=apple-mobile-web-app-capable content=yes>
+	<meta name=apple-mobile-web-app-status-bar-style content=black>
+	<title>Set Master Intensity</title>
+	<link rel="stylesheet" href="../sdpi.css">
+</head>
+<body>
+    <div class="sdpi-wrapper">
+        <div type="range" class="sdpi-item">
+        <div class="sdpi-item-label">Set Intensity</div>
+        <div class="sdpi-item-value range" min="0" max="255" showlabels>
+            <span slot="min">0%</span>
+            <input class="setvalueSlider" id="selectValue" type="range" min="0" max="255" step="1" value="0" oninput="updateSettings()" enabled/>
+            <span slot="max">100%</span>
+            <input class="setvalueBox" id="valueBox" type="number" min="0" max="255" step="1" maxlength="3" size="3" value="0" margin="5" oninput="updateSettings()"/>
+        </div>
+    </div>
+
+<script src="Index.js"></script>
+</body>
+</html>

@@ -76,7 +76,6 @@
 
         private static async Task RunPlugin(Options options)
         {
-            AsyncTcpClient client;
             ManualResetEvent connectEvent = new ManualResetEvent(false);
             ManualResetEvent disconnectEvent = new ManualResetEvent(false);
 
@@ -93,7 +92,7 @@
                 disconnectEvent.Set();
             };
 
-            connection.OnApplicationDidLaunch += async (sender, args) =>
+            connection.OnApplicationDidLaunch += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App Launch: {args.Event.Payload.Application}");
                 
@@ -183,6 +182,9 @@
                     case BaseUuid + ".blackoutgroup":
                     case BaseUuid + ".togglecuelist":
                     case BaseUuid + ".toggleoverridetab":
+                    case BaseUuid + ".foglevel":
+                    case BaseUuid + ".fogfanspeed":
+                    case BaseUuid + ".masterintensity":
                         lock (settings)
                         {
                             settings[args.Event.Context] = args.Event.Payload.Settings;
@@ -293,13 +295,11 @@
                     break;
 
                 case BaseUuid + ".foglevel":
-                    // TODO:  get value 0 - 255 from prop insp
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("304", Toggle) });
+                    await SetFogLevel((int)settings[context]["selectedValue"]);
                     break;
 
                 case BaseUuid + ".fogfanspeed":
-                    // TODO:  get value 0 - 255 from prop insp
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("305", Toggle) });
+                    await SetFogFanSpeed((int)settings[context]["selectedValue"]);
                     break;
 
                 case BaseUuid + ".lockmidi":
@@ -312,6 +312,10 @@
 
                 case BaseUuid + ".master0":
                     await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("152", Toggle) });
+                    break;
+
+                case BaseUuid + ".masterintensity":
+                    await SetMasterIntensity((int)settings[context]["selectedValue"]);
                     break;
 
                 case BaseUuid + ".fadein":
@@ -547,6 +551,36 @@
                                                             "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121"};
 
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
+        }
+
+        private static async Task SetFogLevel(int level)
+        {
+            if (level < 0 || level > 255)
+            {
+                return;
+            }
+
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("304", level.ToString("000")) });
+        }
+
+        private static async Task SetFogFanSpeed(int level)
+        {
+            if (level < 0 || level > 255)
+            {
+                return;
+            }
+
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("305", level.ToString("000")) });
+        }
+
+        private static async Task SetMasterIntensity(int level)
+        {
+            if (level < 0 || level > 255)
+            {
+                return;
+            }
+
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("155", level.ToString("000")) });
         }
 
         private static async Task<string> GetStatus(int item)

@@ -20,13 +20,16 @@ Link to online reference for stream deck plugin development: https://developer.e
 # Dependencies
 
 [streamdeck-client-csharp](https://github.com/TyrenDe/streamdeck-client-csharp)
-[![NuGet version (CommandLineParser)](https://img.shields.io/nuget/v/CommandLineParser.svg?style=plastic-square)](https://www.nuget.org/packages/CommandLineParser)
+[![NuGet version (streamdeck-client-csharp)](https://img.shields.io/nuget/v/streamdeck-client-csharp.svg?style=plastic-square)](https://www.nuget.org/packages/streamdeck-client-csharp)
 
 [CommandLine Parser](https://github.com/commandlineparser/commandline)
-[![NuGet version (streamdeck-client-csharp)](https://img.shields.io/nuget/v/streamdeck-client-csharp.svg?style=plastic-square)](https://www.nuget.org/packages/streamdeck-client-csharp)
+[![NuGet version (CommandLineParser)](https://img.shields.io/nuget/v/CommandLineParser.svg?style=plastic-square)](https://www.nuget.org/packages/CommandLineParser)
 
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 [![NuGet version (Newtonsoft.Json)](https://img.shields.io/nuget/v/Newtonsoft.Json.svg?style=plastic-square)](https://www.nuget.org/packages/Newtonsoft.Json)
+
+[System.Drawing.Common](https://www.nuget.org/packages/System.Drawing.Common/9.0.0)
+[![NuGet version (System.Drawing.Common)](https://img.shields.io/nuget/v/System.Drawing.Common.svg?style=plastic-square)](https://www.nuget.org/packages/System.Drawing.Common)
 
 # Installation
 ### Windows Commandline:

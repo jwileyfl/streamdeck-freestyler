@@ -1,4 +1,9 @@
-﻿namespace FreestylerRemote
+﻿// <copyright file="Program.cs" company="Resnexsoft">
+//     Resnexsoft. All rights reserved.
+// </copyright>
+// <author>Jeremy Wiley</author>
+
+namespace FreestylerRemote
 {
     using CommandLine;
     using CommandLine.Text;
@@ -21,31 +26,50 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Program class for the Freestyler Remote StreamDeck Plugin
+    /// </summary>
     internal class Program
     {
+        /// <summary>
+        /// The base UUID for the plugin
+        /// </summary>
         private const string BaseUuid = "com.resnexsoft.freestyler.remote";
+
+        /// <summary>
+        /// Button On value for freestyler
+        /// </summary>
         private const string On = "255";
+
+        /// <summary>
+        /// Button Off value for freestyler
+        /// </summary>
         private const string Off = "000";
+
+        /// <summary>
+        /// Button Toggle value for freestyler
+        /// </summary>
         private const string Toggle = "255";
-        private List<Tuple<string, string>> commands = new List<Tuple<string, string>>();
 
-        public class Options
+        /// <summary>
+        /// FreeStyler status values available for request
+        /// </summary>
+        private Dictionary<string, int> freestylerStatus = new Dictionary<string, int>() 
         {
-            [Option("port", Required = true, HelpText = "The websocket port to connect to", SetName = "port")]
-            public int Port { get; set; }
-
-            [Option("pluginUUID", Required = true, HelpText = "The UUID of the plugin")]
-            public string PluginUUID { get; set; }
-
-            [Option("registerEvent", Required = true, HelpText = "The event triggered when the plugin is registered?")]
-            public string RegisterEvent { get; set; }
-
-            [Option("info", Required = true, HelpText = "Extra JSON launch data")]
-            public string Info { get; set; }
-        }
+            { "cueCaptions", 1 }, { "overrideCaptions", 2 }, { "cuelistCaptionsCurrent", 3 }, { "cuelistCaptionsAll", 4 }, { "cueStatus", 5 },
+            { "overrideButtonsSetting", 6 }, { "overrideButtonsStatus", 7 }, { "groupNames", 8 }, { "groupStatus", 9 }, { "version", 10 },
+            { "submasterNames", 11 }, { "submasterStatus", 12 }, { "submasterIntensity", 13 }, { "blkoutFreezeFavStatus", 14 }, { "cueCurrent", 15 },
+            { "cuelistStatus", 16 }, { "fixtureNames", 17 }, { "fixtureAddress", 18 }, { "cueSpeed", 19 }, { "masterCueSpeed", 20 }, 
+            { "masterIntensity", 21 }, { "fogFanLevels", 22 }, { "fixtureSelected", 23 }
+        };
 
         // StreamDeck launches the plugin with these details
         // -port [number] -pluginUUID [GUID] -registerEvent [string?] -info [json]
+
+        /// <summary>
+        /// Main entry point for the application
+        /// </summary>
+        /// <param name="args">StreamDeck Plugin Arguments</param>
         private static void Main(string[] args)
         {
             // Uncomment this line of code to allow for debugging
@@ -74,6 +98,11 @@
             options.WithParsed<Options>(async o => await RunPlugin(o));
         }
 
+        /// <summary>
+        /// Run the StreamDeck plugin
+        /// </summary>
+        /// <param name="options">StreamDeck Plugin Options</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task RunPlugin(Options options)
         {
             ManualResetEvent connectEvent = new ManualResetEvent(false);
@@ -95,7 +124,6 @@
             connection.OnApplicationDidLaunch += (sender, args) =>
             {
                 System.Diagnostics.Debug.WriteLine($"App Launch: {args.Event.Payload.Application}");
-                
             };
 
             connection.OnApplicationDidTerminate += (sender, args) =>
@@ -239,6 +267,12 @@
             }
         }
 
+        /// <summary>
+        /// Sends command(s) to the Freestyler TCP server
+        /// </summary>
+        /// <param name="commands">List of command strings to be sent to Freestyler</param>
+        /// <returns><see cref="Task"/></returns>
+        /// <example> <code> await SendTcpCommand( new List&lt;Tuple&lt;string, string&gt;&gt;() { new Tuple&lt;string, string&gt;("000", Toggle) }); </code> </example>
         private static async Task SendTcpCommand(List<Tuple<string, string>> commands)
         {
             AsyncTcpClient client = new AsyncTcpClient();
@@ -264,6 +298,13 @@
             }
         }
         
+        /// <summary>
+        /// Handle the KeyUp event from the StreamDeck
+        /// </summary>
+        /// <param name="action">Event Action (UUID as defined in manifest.json)</param>
+        /// <param name="settings">Settings collected from action property inspector</param>
+        /// <param name="context">Event Context</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task HandleKeyUp(string action, Dictionary<string, JObject> settings, string context)
         {
             
@@ -445,6 +486,11 @@
             }
         }
 
+        /// <summary>
+        /// Open a panel in Freestyler
+        /// </summary>
+        /// <param name="panel">panel to open</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task OpenPanel(string panel)
         {
             Dictionary<string, string> panelDict = new Dictionary<string, string>()
@@ -462,6 +508,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(panelDict[panel], Toggle) });
         }
 
+        /// <summary>
+        /// Toggle a sequence in Freestyler
+        /// </summary>
+        /// <param name="seqNumber">sequence to toggle (1 to 20)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task ToggleSequence(int seqNumber)
         {
             if (seqNumber < 1 || seqNumber > 20)
@@ -475,6 +526,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(sequence[seqNumber], Toggle) });
         }
 
+        /// <summary>
+        /// Select a tab from the cue list panel in Freestyler
+        /// </summary>
+        /// <param name="cueListTab">cue list tab to select (1 to 6)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task SelectCueListTab(int cueListTab)
         {
             if (cueListTab < 1 || cueListTab > 6)
@@ -487,6 +543,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueListTabList[cueListTab], Toggle) });
         }
 
+        /// <summary>
+        /// Toggle a cue list in Freestyler
+        /// </summary>
+        /// <param name="cueListNumber">cue list to toggle (1 to 32)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task ToggleCueList(int cueListNumber)
         {
             if (cueListNumber < 1 || cueListNumber > 32)
@@ -501,6 +562,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueList[cueListNumber], Toggle) });
         }
 
+        /// <summary>
+        /// Toggle a button on the current override panel tab in Freestyler
+        /// </summary>
+        /// <param name="overrideButton">override button to toggle (1 to 32)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task ToggleOverride(int overrideButton)
         {
             if (overrideButton < 1 || overrideButton > 32)
@@ -515,6 +581,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideList[overrideButton], On), new Tuple<string, string>(overrideList[overrideButton], Off) });
         }
 
+        /// <summary>
+        /// Select a tab from the override panel in Freestyler
+        /// </summary>
+        /// <param name="overrideTab">override tab to select (1 to 6)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task SelectOverrideTab(int overrideTab)
         {
             if (overrideTab < 1 || overrideTab > 6)
@@ -527,6 +598,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideTabList[overrideTab], Toggle) });
         }
 
+        /// <summary>
+        /// Select a fixture group in Freestyler
+        /// </summary>
+        /// <param name="groupNumber">fixture group to select (1 to 24)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task SelectGroup(int groupNumber)
         {
             if (groupNumber < 1 || groupNumber > 24)
@@ -540,6 +616,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
         }
 
+        /// <summary>
+        /// Blackout a fixture group in Freestyler
+        /// </summary>
+        /// <param name="groupNumber">fixture group to blackout (1 to 24)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task BlackoutGroup(int groupNumber)
         {
             if (groupNumber < 1 || groupNumber > 24)
@@ -553,6 +634,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
         }
 
+        /// <summary>
+        /// Set the smoke/fog level in Freestyler
+        /// </summary>
+        /// <param name="level">fog level (0 to 255)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task SetFogLevel(int level)
         {
             if (level < 0 || level > 255)
@@ -563,6 +649,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("304", level.ToString("000")) });
         }
 
+        /// <summary>
+        /// Set the smoke/fog fan speed in Freestyler
+        /// </summary>
+        /// <param name="level">fan speed (0 to 255)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task SetFogFanSpeed(int level)
         {
             if (level < 0 || level > 255)
@@ -573,6 +664,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("305", level.ToString("000")) });
         }
 
+        /// <summary>
+        /// Set the master intensity in Freestyler
+        /// </summary>
+        /// <param name="level">intensity level to set (0 to 255)</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task SetMasterIntensity(int level)
         {
             if (level < 0 || level > 255)
@@ -583,6 +679,11 @@
             await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("155", level.ToString("000")) });
         }
 
+        /// <summary>
+        /// Get the status of a Freestyler item
+        /// </summary>
+        /// <param name="item">Freestyler item to query status of</param>
+        /// <returns><see cref="Task"/></returns>
         private static async Task<string> GetStatus(int item)
         {
             string resp = "";
@@ -614,6 +715,57 @@
             }
 
             return resp;
+        }
+
+        /// <summary>
+        /// StreamDeck Plugin <c>Options</c> class
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Port</term>
+        /// <description>The websocket port to connect to</description>
+        /// </item>
+        /// <item>
+        /// <term>PluginUUID</term>
+        /// <description>The UUID of the plugin</description>
+        /// </item>
+        /// <item>
+        /// <term>RegisterEvent</term>
+        /// <description>The event triggered when the plugin is registered</description>
+        /// </item>
+        /// <item>
+        /// <term>Info</term>
+        /// <description>Extra JSON launch data</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <remarks>
+        /// These options are passed to the plugin when it is launched by the StreamDeck application
+        /// </remarks>
+        public class Options
+        {
+            /// <summary>
+            /// Gets or sets the Port to connect to
+            /// </summary>
+            [Option("port", Required = true, HelpText = "The websocket port to connect to", SetName = "port")]
+            public int Port { get; set; }
+
+            /// <summary>
+            /// Gets or sets the UUID of the plugin
+            /// </summary>
+            [Option("pluginUUID", Required = true, HelpText = "The UUID of the plugin")]
+            public string PluginUUID { get; set; }
+
+            /// <summary>
+            /// Gets or sets the event triggered when the plugin is registered
+            /// </summary>
+            [Option("registerEvent", Required = true, HelpText = "The event triggered when the plugin is registered?")]
+            public string RegisterEvent { get; set; }
+
+            /// <summary>
+            /// Gets or sets the extra JSON launch data
+            /// </summary>
+            [Option("info", Required = true, HelpText = "Extra JSON launch data")]
+            public string Info { get; set; }
         }
     }
 }

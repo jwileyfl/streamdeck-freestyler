@@ -1,8 +1,10 @@
 {
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
   "Actions": [
     {
       "Icon": "Images/action",
       "Name": "Toggle All Fixtures",
+      "Category": "Toggle Fixtures",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -12,6 +14,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles all available fixtures in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.toggleall"
@@ -19,6 +22,7 @@
     {
       "Icon": "Images/actionFavorite",
       "Name": "Toggle Favorite Fixture(s)",
+      "Category": "Toggle Fixtures",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -28,6 +32,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles favorite fixtures in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.togglefavorite"
@@ -35,6 +40,7 @@
     {
       "Icon": "Images/actionBlackout",
       "Name": "Toggle Master Blackout",
+      "Category": "Blackout Fixture(s)",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -44,6 +50,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Master Blackout in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.blackout"
@@ -60,6 +67,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Freeze in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.freeze"
@@ -76,6 +84,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Releases All Fixtures in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.releaseall"
@@ -83,6 +92,7 @@
     {
       "Icon": "Images/actionFog",
       "Name": "Fog/Smoke",
+      "Category": "Fog",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -92,6 +102,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Fog/Smoke in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.fog"
@@ -99,6 +110,7 @@
     {
       "Icon": "Images/actionFog",
       "Name": "Fog Level",
+      "Category": "Fog",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -108,6 +120,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Adjusts Fog Level in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.foglevel",
@@ -116,6 +129,7 @@
     {
       "Icon": "Images/actionFog",
       "Name": "Fog Fan Speed",
+      "Category": "Fog",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -125,6 +139,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Adjusts Fog Fan Speed in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.fogfanspeed",
@@ -142,6 +157,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Locks MIDI Input",
       "UUID": "com.resnexsoft.freestyler.remote.lockmidi"
@@ -158,6 +174,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles All Applicable Panels for selected fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.openall"
@@ -174,6 +191,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Gobo Panel if applicable for selectd fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.opengobo"
@@ -190,6 +208,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Color Panel if applicable for selected fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.opencolor"
@@ -206,6 +225,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Pan/Tilt Panel if applicable for selectd fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.openpantilt"
@@ -222,6 +242,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Beam Panel if applicable for selected fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.openbeam"
@@ -238,6 +259,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Macro Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.openmacro"
@@ -254,6 +276,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Dmx400 Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opendmx400"
@@ -270,6 +293,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Lamp Panel if applicable for selected fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.openlamp"
@@ -286,6 +310,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Create Sequence Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opencreatesequence"
@@ -302,6 +327,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Cue Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opencue"
@@ -318,6 +344,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Sound Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opensound"
@@ -334,6 +361,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Output Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.openoutput"
@@ -350,6 +378,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Framing Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.openframing"
@@ -366,6 +395,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Override Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.openoverride"
@@ -382,6 +412,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Master Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.openmaster"
@@ -398,6 +429,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Opens SubMaster Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opensubmaster"
@@ -405,6 +437,7 @@
     {
       "Icon": "Images/actionFog",
       "Name": "Toggle Smoke Panel",
+      "Category": "Fog",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -414,6 +447,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Smoke Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opensmoke"
@@ -430,6 +464,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Displays Sliders in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opensliders"
@@ -446,6 +481,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles FX Panel if applicable for selected fixture(s)",
       "UUID": "com.resnexsoft.freestyler.remote.openfx"
@@ -462,6 +498,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Opens CueList Panel in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.opencuelist"
@@ -478,6 +515,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Sets Master Intensity to 100% in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.master100"
@@ -494,6 +532,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Sets Master Intensity to 0% in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.master0"
@@ -510,6 +549,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Sets Master Intensity in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.masterintensity",
@@ -527,6 +567,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Fade In Master in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.fadein"
@@ -543,6 +584,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Fade Out Master in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.fadeout"
@@ -559,6 +601,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Plays Active Sequence in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.playSequence"
@@ -575,6 +618,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggle Selected Sequence",
       "UUID": "com.resnexsoft.freestyler.remote.togglesequence",
@@ -592,6 +636,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects CueList Tab in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.selectcuelisttab",
@@ -609,6 +654,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Previous CueList Tab in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.prevcuelisttab"
@@ -625,6 +671,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Next CueList Tab in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.nextcuelisttab"
@@ -641,6 +688,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles Cuelist",
       "UUID": "com.resnexsoft.freestyler.remote.togglecuelist",
@@ -658,6 +706,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Advances Sequence to Next Scene",
       "UUID": "com.resnexsoft.freestyler.remote.nextscene"
@@ -674,6 +723,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Advances Sequence to Previous Scene",
       "UUID": "com.resnexsoft.freestyler.remote.prevscene"
@@ -690,6 +740,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Previous Group",
       "UUID": "com.resnexsoft.freestyler.remote.prevgroup"
@@ -706,6 +757,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Next Group",
       "UUID": "com.resnexsoft.freestyler.remote.nextgroup"
@@ -722,6 +774,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Grouped Fixtures",
       "UUID": "com.resnexsoft.freestyler.remote.selectgroup",
@@ -730,6 +783,7 @@
     {
       "Icon": "Images/actionNext",
       "Name": "Blackout Group",
+      "Category": "Blackout Fixture(s)",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -739,6 +793,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Grouped Fixtures",
       "UUID": "com.resnexsoft.freestyler.remote.blackoutgroup",
@@ -756,6 +811,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Override Tab in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.toggleoverridetab",
@@ -773,6 +829,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Clicks Button in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.toggleoverride",
@@ -790,6 +847,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Previous Tab in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.prevoverridetab"
@@ -806,6 +864,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Selects Next Tab in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.nextoverridetab"
@@ -822,6 +881,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Disables all Buttons in Override Panel",
       "UUID": "com.resnexsoft.freestyler.remote.disableoverrides"
@@ -838,6 +898,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles DMX400 Mode",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400mode"
@@ -845,6 +906,7 @@
     {
       "Icon": "Images/actionDmx",
       "Name": "DMX400 Blackout",
+      "Category": "Blackout Fixture(s)",
       "Controllers": [ "Keypad" ],
       "States": [
         {
@@ -854,6 +916,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Toggles DMX400 Blackout",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400blackout"
@@ -870,6 +933,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Set DMX400 Master Intensity to 100%",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400Full"
@@ -886,6 +950,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Fade DMX400",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400fade"
@@ -902,6 +967,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Sets DMX400 to Auto Change",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400autochange"
@@ -918,6 +984,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Sets DMX400 to Color Change",
       "UUID": "com.resnexsoft.freestyler.remote.dmx400colorchange"
@@ -934,6 +1001,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Tap Sync in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.tapsync"
@@ -950,6 +1018,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Manual Trigger in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.mantrig"
@@ -966,6 +1035,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Sound To LIght Trigger in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.soundtolighttrigger"
@@ -982,6 +1052,7 @@
           "FontSize": "9"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "Disable Tab/Manual Trigger in Freestyler",
       "UUID": "com.resnexsoft.freestyler.remote.tapsyncdisable"
@@ -997,6 +1068,7 @@
           "FontSize": "17"
         }
       ],
+      "OS": [ "windows" ],
       "SupportedInMultiActions": false,
       "Tooltip": "This demonstrates saving and using settings",
       "UUID": "com.resnexsoft.freestyler.remote.pidemo",

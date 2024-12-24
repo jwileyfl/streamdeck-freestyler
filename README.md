@@ -19,6 +19,7 @@ Link to online reference for stream deck plugin development: https://developer.e
 
 # Dependencies
 
+### NuGet Packages:
 [streamdeck-client-csharp](https://github.com/TyrenDe/streamdeck-client-csharp)
 [![NuGet version (streamdeck-client-csharp)](https://img.shields.io/nuget/v/streamdeck-client-csharp.svg?style=plastic-square)](https://www.nuget.org/packages/streamdeck-client-csharp)
 

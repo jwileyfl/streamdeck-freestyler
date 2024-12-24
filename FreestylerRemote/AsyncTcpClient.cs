@@ -1,4 +1,9 @@
-﻿namespace FreestylerRemote
+﻿// <copyright file="AsyncTcpClient.cs" company="Resnexsoft">
+//     Copyright (c) Resnexsoft. All rights reserved.
+// </copyright>
+// <author>Jeremy Wiley</author>
+
+namespace FreestylerRemote
 {
     using System;
     using System.Collections.Generic;
@@ -11,28 +16,58 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// <c>AsyncTcpClient</c> class
+    /// </summary>
+    /// <remarks>
+    /// Asynchronous TCP Client used to communicate with Freestyler over TCP/IP.
+    /// </remarks>
     internal class AsyncTcpClient
     {
+        /// <summary>
+        /// IP Address for Freestyler instance on local machine
+        /// </summary>
         private const string FreestylerIp = "127.0.0.1";
-        private const int FreestylerPort = 3332;
-        //private readonly IPEndPoint _serverEndPoint = new IPEndPoint(IPAddress.Parse(FreestylerIp), FreestylerPort);
-        private TcpClient _client;
-        private NetworkStream _clientStream;
-        //private StreamWriter _writer;
 
+        /// <summary>
+        /// TCP Port for Freestyler instance
+        /// </summary>
+        private const int FreestylerPort = 3332;
+
+        /// <summary>
+        /// TCP Client instance
+        /// </summary>
+        private TcpClient _client;
+
+        /// <summary>
+        /// Network Stream instance used to read/write data
+        /// </summary>
+        private NetworkStream _clientStream;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AsyncTcpClient"/> class.
+        /// </summary>
         public AsyncTcpClient()
         {
-            _client = new TcpClient();
+            this._client = new TcpClient();
         }
 
+        /// <summary>
+        /// Finalizes an instance of the <see cref="AsyncTcpClient"/> class.
+        /// </summary>
         ~AsyncTcpClient()
         {
-            if (_client != null)
+            if (this._client != null)
             {
-                Disconnect();
+                this.Disconnect();
             }
         }
 
+        /// <summary>
+        /// Connect to Freestyler instance
+        /// </summary>
+        /// <param name="cancellationToken">cancellation token</param>
+        /// <returns><see cref="Task"/></returns>
         public async Task<bool> ConnectAsync(CancellationToken cancellationToken = default)
         {
             try
@@ -56,6 +91,10 @@
             return true;
         }
 
+        /// <summary>
+        /// Disconnect from Freestyler instance
+        /// </summary>
+        /// <param name="cancellationToken">cancellation token</param>
         public void Disconnect(CancellationToken cancellationToken = default)
         {
             try
@@ -77,6 +116,13 @@
             }
         }
 
+        /// <summary>
+        /// Send byte data to Freestyler instance
+        /// </summary>
+        /// <param name="cmd1">command 1</param>
+        /// <param name="cmd2">command 2</param>
+        /// <param name="cancellationToken">cancellation token</param>
+        /// <returns><see cref="Task"/></returns>
         public async Task SendAsync(byte cmd1, byte cmd2, CancellationToken cancellationToken = default)
         {
             if (this._clientStream is null)
@@ -101,6 +147,14 @@
             await this._clientStream.FlushAsync(cancellationToken);
         }
 
+        /// <summary>
+        /// Send string data to Freestyler instance
+        /// </summary>
+        /// <param name="code">3 character code (as specified in Freestyler docs)</param>
+        /// <param name="arg">3 character TCP/IP argument (as specified in Freestyler docs)</param>
+        /// <param name="option">optional (for later use)</param>
+        /// <param name="cancellationToken">cancellation token</param>
+        /// <returns><see cref="Task"/></returns>
         public async Task SendAsync(string code, string arg, string option = "", CancellationToken cancellationToken = default)
         {
             if (this._clientStream is null)
@@ -124,6 +178,11 @@
             }
         }
 
+        /// <summary>
+        /// Receive data from Freestyler instance
+        /// </summary>
+        /// <param name="cancellationToken">cancellation token</param>
+        /// <returns><see cref="Task"/> string response</returns>
         public async Task<string> ReceiveAsync(CancellationToken cancellationToken = default)
         {
             byte[] respBuffer = new byte[1024];
@@ -179,6 +238,12 @@
             return resp;
         }
 
+        /// <summary>
+        /// Query Freestyler instance for data
+        /// </summary>
+        /// <param name="code">3 character code</param>
+        /// <param name="cancellationToken">cancellation token</param>
+        /// <returns><see cref="Task"/></returns>
         public async Task<string> QueryAsync(string code, CancellationToken cancellationToken = default)
         {
             code = "FSBC" + code + "000";

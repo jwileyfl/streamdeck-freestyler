@@ -94,8 +94,7 @@ namespace FreestylerRemote
         /// <summary>
         /// Disconnect from Freestyler instance
         /// </summary>
-        /// <param name="cancellationToken">cancellation token</param>
-        public void Disconnect(CancellationToken cancellationToken = default)
+        public void Disconnect()
         {
             try
             {
@@ -247,8 +246,8 @@ namespace FreestylerRemote
         public async Task<string> QueryAsync(string code, CancellationToken cancellationToken = default)
         {
             code = "FSBC" + code + "000";
-            byte[] respBuffer = new byte[1024];
-            string resp = "";
+            byte[] respBuffer = new byte[4096];
+            string resp = string.Empty;
             int counter = 0;
 
             // F, S, B, C, #, #, #, 0, 0, 0
@@ -260,13 +259,12 @@ namespace FreestylerRemote
                 await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
                 await this._clientStream.FlushAsync(cancellationToken);
 
-                do
+                while (!this._clientStream.DataAvailable && counter < 10)
                 {
                     await Task.Delay(500, cancellationToken);
                     counter++;
                 }
-                while (!this._clientStream.DataAvailable && counter < 10);
-
+                
                 if (this._clientStream.DataAvailable)
                 {
                     int numBytes = await this._clientStream.ReadAsync(respBuffer, 0, respBuffer.Length, cancellationToken);
@@ -276,21 +274,13 @@ namespace FreestylerRemote
                     resp = resp.Trim('?');
                     resp = resp.Replace("FSBC", "");
                     resp = resp.Trim();
-
-                    if (int.TryParse(resp, out int result) && result < 33 || result > 126)
-                    {
-                        if (Convert.ToInt32(resp[0]) < 33 || Convert.ToInt32(resp[0]) > 126)
-                        {
-                            resp = resp.Remove(0, 1);
-                        }
-
-                        if (resp.StartsWith(","))
-                        {
-                            resp = resp.Remove(0, 1);
-                        }
-                    }
+                    resp = new string(resp.Where(c => !char.IsControl(c)).ToArray());
                 }
-
+            }
+            catch (TaskCanceledException e)
+            {
+                Console.WriteLine("Query Canceled");
+                throw;
             }
             catch (Exception e)
             {

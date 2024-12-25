@@ -18,6 +18,7 @@ namespace FreestylerRemote
     using System.Drawing;
     using System.Linq;
     using System.Net.Mime;
+    using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
     using System.Runtime.Remoting.Channels;
     using System.Runtime.Remoting.Contexts;
@@ -54,7 +55,7 @@ namespace FreestylerRemote
         /// <summary>
         /// FreeStyler status values available for request
         /// </summary>
-        private Dictionary<string, int> freestylerStatus = new Dictionary<string, int>() 
+        private static readonly Dictionary<string, int> freestylerStatus = new Dictionary<string, int>() 
         {
             { "cueCaptions", 1 }, { "overrideCaptions", 2 }, { "cuelistCaptionsCurrent", 3 }, { "cuelistCaptionsAll", 4 }, { "cueStatus", 5 },
             { "overrideButtonsSetting", 6 }, { "overrideButtonsStatus", 7 }, { "groupNames", 8 }, { "groupStatus", 9 }, { "version", 10 },
@@ -62,6 +63,34 @@ namespace FreestylerRemote
             { "cuelistStatus", 16 }, { "fixtureNames", 17 }, { "fixtureAddress", 18 }, { "cueSpeed", 19 }, { "masterCueSpeed", 20 }, 
             { "masterIntensity", 21 }, { "fogFanLevels", 22 }, { "fixtureSelected", 23 }
         };
+
+        private static readonly SemaphoreSlim SlimSem = new SemaphoreSlim(1, 1);
+        private static bool isQueryRunning = false;
+        private static string cueCaptions = "";
+        private static string overrideCaptions = "";
+        private static string cuelistCaptionsCurrent = "";
+        private static string cuelistCaptionsAll = "";
+        private static string cueStatus = "";
+        private static string overrideButtonsSetting = "";
+        private static string overrideButtonsStatus = "";
+        private static string groupNames = "";
+        private static string groupStatus = "";
+        private static string version = "";
+        private static string submasterNames = "";
+        private static string submasterStatus = "";
+        private static string submasterIntensity = "";
+        private static string blkoutFreezeFavStatus = "";
+        private static string cueCurrent = "";
+        private static string cuelistStatus = "";
+        private static string fixtureNames = "";
+        private static string fixtureAddress = "";
+        private static string cueSpeed = "";
+        private static string masterCueSpeed = "";
+        private static string masterIntensity = "";
+        private static string fogFanLevels = "";
+        private static string fixtureSelected = "";
+
+        private static Dictionary<string, int> intensityDisplays = new Dictionary<string, int>();
 
         // StreamDeck launches the plugin with these details
         // -port [number] -pluginUUID [GUID] -registerEvent [string?] -info [json]
@@ -72,7 +101,7 @@ namespace FreestylerRemote
         /// <param name="args">StreamDeck Plugin Arguments</param>
         private static void Main(string[] args)
         {
-            // Uncomment this line of code to allow for debugging
+
 #if DEBUG
             while (!System.Diagnostics.Debugger.IsAttached) { System.Threading.Thread.Sleep(100); }
 #endif
@@ -95,6 +124,7 @@ namespace FreestylerRemote
             });
 
             ParserResult<Options> options = parser.ParseArguments<Options>(args);
+
             options.WithParsed<Options>(async o => await RunPlugin(o));
         }
 
@@ -102,8 +132,9 @@ namespace FreestylerRemote
         /// Run the StreamDeck plugin
         /// </summary>
         /// <param name="options">StreamDeck Plugin Options</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task RunPlugin(Options options)
+        private static async Task RunPlugin(Options options, CancellationToken cancellationToken = default)
         {
             ManualResetEvent connectEvent = new ManualResetEvent(false);
             ManualResetEvent disconnectEvent = new ManualResetEvent(false);
@@ -111,9 +142,17 @@ namespace FreestylerRemote
             StreamDeckConnection connection = new StreamDeckConnection(options.Port, options.PluginUUID, options.RegisterEvent);
             Dictionary<string, JObject> settings = new Dictionary<string, JObject>();
             List<string> statusList = new List<string>();
-            connection.OnConnected += (sender, args) =>
+            string tmpValue = string.Empty;
+
+            connection.OnConnected += async (sender, args) =>
             {
                 connectEvent.Set();
+
+                if (IsFreestylerRunning())
+                {
+                    masterIntensity = await GetStatus(freestylerStatus["masterIntensity"], cancellationToken);
+                    tmpValue = masterIntensity;
+                }
             };
 
             connection.OnDisconnected += (sender, args) =>
@@ -160,7 +199,7 @@ namespace FreestylerRemote
             {
                 System.Diagnostics.Debug.WriteLine($"App KeyUp: {args.Event.Action}, {args.Event.Context}");
 
-                await HandleKeyUp(args.Event.Action, settings, args.Event.Context);
+                await HandleKeyUp(args.Event.Action, settings, args.Event.Context, cancellationToken);
             };
 
             connection.OnSendToPlugin += (sender, args) =>
@@ -179,6 +218,11 @@ namespace FreestylerRemote
             {
                 System.Diagnostics.Debug.WriteLine("Property Inspector Did Appear");
                 connection.GetSettingsAsync(args.Event.Context);
+            };
+
+            connection.OnPropertyInspectorDidDisappear += (sender, args) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Property Inspector Did Disappear");
             };
 
             connection.OnDidReceiveSettings += (sender, args) =>
@@ -201,6 +245,13 @@ namespace FreestylerRemote
                             {
                                 settings[args.Event.Context]["textDemoValue"] = JValue.CreateString("");
                             }
+                        }
+                        break;
+
+                    case BaseUuid + ".displaymasterintensity":
+                        lock (intensityDisplays)
+                        {
+                            intensityDisplays[args.Event.Context] = 0;
                         }
                         break;
                     case BaseUuid + ".togglesequence":
@@ -241,6 +292,11 @@ namespace FreestylerRemote
                 }
             };
 
+            connection.OnTitleParametersDidChange += (sender, args) =>
+            {
+                System.Diagnostics.Debug.WriteLine("Title Parameters Did Change");
+            };
+
             // Start the connection
             connection.Run();
 
@@ -250,19 +306,26 @@ namespace FreestylerRemote
             // Wait for up to 10 seconds to connect
             if (connectEvent.WaitOne(TimeSpan.FromSeconds(10)))
             {
-                // Check if Freestyler is running, and get the status of all items if so
-                if (System.Diagnostics.Process.GetProcessesByName("FreestylerX2").Length > 0)
-                {
-                    for (int i = 1; i < 24; i++)
-                    {
-                        // statusList.Add(await GetStatus(i));
-                    }
-                }
-
                 // We connected, loop every second until we disconnect
-                while (!disconnectEvent.WaitOne(TimeSpan.FromMilliseconds(1000)))
+                while (!disconnectEvent.WaitOne(TimeSpan.FromMilliseconds(500)))
                 {
+                    if (IsFreestylerRunning())
+                    {
+                        tmpValue = GetStatus(freestylerStatus["masterIntensity"]).Result;
+                    }
 
+                    if (masterIntensity != tmpValue)
+                    {
+                        masterIntensity = tmpValue;
+
+                        lock (intensityDisplays)
+                        {
+                            foreach (KeyValuePair<string, int> kvp in intensityDisplays.ToArray())
+                            {
+                                connection.SetTitleAsync($"{masterIntensity}%", kvp.Key, SDKTarget.HardwareAndSoftware, null);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -271,19 +334,20 @@ namespace FreestylerRemote
         /// Sends command(s) to the Freestyler TCP server
         /// </summary>
         /// <param name="commands">List of command strings to be sent to Freestyler</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
         /// <example> <code> await SendTcpCommand( new List&lt;Tuple&lt;string, string&gt;&gt;() { new Tuple&lt;string, string&gt;("000", Toggle) }); </code> </example>
-        private static async Task SendTcpCommand(List<Tuple<string, string>> commands)
+        private static async Task SendTcpCommand(List<Tuple<string, string>> commands, CancellationToken cancellationToken = default)
         {
             AsyncTcpClient client = new AsyncTcpClient();
 
             try
             {
-                if (await client.ConnectAsync())
+                if (await client.ConnectAsync(cancellationToken))
                 {
                     foreach (var command in commands)
                     {
-                        await client.SendAsync(command.Item1, command.Item2);
+                        await client.SendAsync(command.Item1, command.Item2, string.Empty, cancellationToken);
                     }
                 }
             }
@@ -297,189 +361,190 @@ namespace FreestylerRemote
                 client.Disconnect();
             }
         }
-        
+
         /// <summary>
         /// Handle the KeyUp event from the StreamDeck
         /// </summary>
         /// <param name="action">Event Action (UUID as defined in manifest.json)</param>
         /// <param name="settings">Settings collected from action property inspector</param>
         /// <param name="context">Event Context</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task HandleKeyUp(string action, Dictionary<string, JObject> settings, string context)
+        private static async Task HandleKeyUp(string action, Dictionary<string, JObject> settings, string context, CancellationToken cancellationToken = default)
         {
             
             switch (action)
             {
                 case BaseUuid + ".toggleall":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("000", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("000", Toggle) }, cancellationToken);
                     break;
                 
                 case BaseUuid + ".togglefavorite":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("001", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("001", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".blackout":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("002", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("002", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".freeze":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("123", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("123", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".releaseall":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("024", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("024", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".fog":
                     // This one is a momentary button, so it will need a short delay to turn off
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("176", On), new Tuple<string, string>("176", Off) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("176", On), new Tuple<string, string>("176", Off) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".foglevel":
-                    await SetFogLevel((int)settings[context]["selectedValue"]);
+                    await SetFogLevel((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".fogfanspeed":
-                    await SetFogFanSpeed((int)settings[context]["selectedValue"]);
+                    await SetFogFanSpeed((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".lockmidi":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("181", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("181", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".master100":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("151", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("151", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".master0":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("152", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("152", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".masterintensity":
-                    await SetMasterIntensity((int)settings[context]["selectedValue"]);
+                    await SetMasterIntensity((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".fadein":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("153", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("153", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".fadeout":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("154", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("154", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".playSequence":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("577", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("577", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".nextscene":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("575", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("575", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".prevscene":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("576", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("576", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".dmx400mode":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("564", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("564", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".dmx400blackout":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("310", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("310", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".dmx400Full":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("311", On), new Tuple<string, string>("311", Off) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("311", On), new Tuple<string, string>("311", Off) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".dmx400fade":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("312", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("312", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".dmx400autochange":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("315", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("315", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".dmx400colorchange":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("316", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("316", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".tapsync":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("009", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("009", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".mantrig":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("207", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("207", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".soundtolighttrigger":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("232", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("232", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".tapsyncdisable":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("134", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("134", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".prevgroup":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("296", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("296", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".nextgroup":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("297", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("297", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".prevoverridetab":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("298", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("298", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".nextoverridetab":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("299", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("299", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".disableoverrides":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("265", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("265", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".prevcuelisttab":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("300", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("300", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".nextcuelisttab":
-                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("301", Toggle) });
+                    await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("301", Toggle) }, cancellationToken);
                     break;
 
                 case BaseUuid + ".togglesequence":
-                    await ToggleSequence((int)settings[context]["selectedValue"]);
+                    await ToggleSequence((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".selectcuelisttab":
-                    await SelectCueListTab((int)settings[context]["selectedValue"]);
+                    await SelectCueListTab((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".toggleoverride":
-                    await ToggleOverride((int)settings[context]["selectedValue"]);
+                    await ToggleOverride((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".selectgroup":
-                    await SelectGroup((int)settings[context]["selectedValue"]);
+                    await SelectGroup((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".blackoutgroup":
-                    await BlackoutGroup((int)settings[context]["selectedValue"]);
+                    await BlackoutGroup((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".togglecuelist":
-                    await ToggleCueList((int)settings[context]["selectedValue"]);
+                    await ToggleCueList((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 case BaseUuid + ".toggleoverridetab":
-                    await SelectOverrideTab((int)settings[context]["selectedValue"]);
+                    await SelectOverrideTab((int)settings[context]["selectedValue"], cancellationToken);
                     break;
 
                 default:
                     if (action.StartsWith(BaseUuid + ".open"))
                     {
                         string panel = action.Replace(BaseUuid + ".open", "");
-                        await OpenPanel(panel);
+                        await OpenPanel(panel, cancellationToken);
                     }
 
                     break;
@@ -490,8 +555,9 @@ namespace FreestylerRemote
         /// Open a panel in Freestyler
         /// </summary>
         /// <param name="panel">panel to open</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task OpenPanel(string panel)
+        private static async Task OpenPanel(string panel, CancellationToken cancellationToken = default)
         {
             Dictionary<string, string> panelDict = new Dictionary<string, string>()
             {
@@ -505,15 +571,16 @@ namespace FreestylerRemote
                 return;
             }
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(panelDict[panel], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(panelDict[panel], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Toggle a sequence in Freestyler
         /// </summary>
         /// <param name="seqNumber">sequence to toggle (1 to 20)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task ToggleSequence(int seqNumber)
+        private static async Task ToggleSequence(int seqNumber, CancellationToken cancellationToken = default)
         {
             if (seqNumber < 1 || seqNumber > 20)
             {
@@ -523,15 +590,16 @@ namespace FreestylerRemote
             List<string> sequence = new List<string>() {"0", "046", "047", "048", "049", "050", "051", "052", "053", "054", "055",
                                                         "056", "057", "058", "059", "060", "061", "062", "063", "064", "065"};
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(sequence[seqNumber], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(sequence[seqNumber], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Select a tab from the cue list panel in Freestyler
         /// </summary>
         /// <param name="cueListTab">cue list tab to select (1 to 6)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task SelectCueListTab(int cueListTab)
+        private static async Task SelectCueListTab(int cueListTab, CancellationToken cancellationToken = default)
         {
             if (cueListTab < 1 || cueListTab > 6)
             {
@@ -540,15 +608,16 @@ namespace FreestylerRemote
 
             List<string> cueListTabList = new List<string>() { "0", "266", "267", "268", "269", "270", "271" };
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueListTabList[cueListTab], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueListTabList[cueListTab], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Toggle a cue list in Freestyler
         /// </summary>
         /// <param name="cueListNumber">cue list to toggle (1 to 32)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task ToggleCueList(int cueListNumber)
+        private static async Task ToggleCueList(int cueListNumber, CancellationToken cancellationToken = default)
         {
             if (cueListNumber < 1 || cueListNumber > 32)
             {
@@ -559,15 +628,16 @@ namespace FreestylerRemote
                 "282", "283", "284", "285", "286", "287", "671", "672", "673", "674", "675", "676", "677", "678", "679", "680",
                 "681", "682", "683", "684", "685", "686"};
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueList[cueListNumber], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(cueList[cueListNumber], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Toggle a button on the current override panel tab in Freestyler
         /// </summary>
         /// <param name="overrideButton">override button to toggle (1 to 32)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task ToggleOverride(int overrideButton)
+        private static async Task ToggleOverride(int overrideButton, CancellationToken cancellationToken = default)
         {
             if (overrideButton < 1 || overrideButton > 32)
             {
@@ -578,15 +648,16 @@ namespace FreestylerRemote
                 "076", "077", "078", "079", "080", "081", "082", "083", "084", "085", "086", "087", "088", "089", "090", "091", "092",
                 "093", "094", "095", "096", "097"};
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideList[overrideButton], On), new Tuple<string, string>(overrideList[overrideButton], Off) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideList[overrideButton], On), new Tuple<string, string>(overrideList[overrideButton], Off) }, cancellationToken);
         }
 
         /// <summary>
         /// Select a tab from the override panel in Freestyler
         /// </summary>
         /// <param name="overrideTab">override tab to select (1 to 6)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task SelectOverrideTab(int overrideTab)
+        private static async Task SelectOverrideTab(int overrideTab, CancellationToken cancellationToken = default)
         {
             if (overrideTab < 1 || overrideTab > 6)
             {
@@ -595,15 +666,16 @@ namespace FreestylerRemote
 
             List<string> overrideTabList = new List<string>() { "0", "234", "235", "236", "237", "238", "239" };
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideTabList[overrideTab], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(overrideTabList[overrideTab], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Select a fixture group in Freestyler
         /// </summary>
         /// <param name="groupNumber">fixture group to select (1 to 24)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task SelectGroup(int groupNumber)
+        private static async Task SelectGroup(int groupNumber, CancellationToken cancellationToken = default)
         {
             if (groupNumber < 1 || groupNumber > 24)
             {
@@ -613,15 +685,16 @@ namespace FreestylerRemote
             List<string> groupList = new List<string>() {"0", "034", "035", "036", "037", "038", "039", "040", "041", "042", "043",
                 "550", "551", "552", "553", "554", "555", "556", "557", "558", "559", "560", "561", "562", "563"};
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Blackout a fixture group in Freestyler
         /// </summary>
         /// <param name="groupNumber">fixture group to blackout (1 to 24)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task BlackoutGroup(int groupNumber)
+        private static async Task BlackoutGroup(int groupNumber, CancellationToken cancellationToken = default)
         {
             if (groupNumber < 1 || groupNumber > 24)
             {
@@ -631,76 +704,83 @@ namespace FreestylerRemote
             List<string> groupList = new List<string>() {"0", "098", "099", "100", "101", "102", "103", "104", "105", "106", "107",
                                                             "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121"};
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>(groupList[groupNumber], Toggle) }, cancellationToken);
         }
 
         /// <summary>
         /// Set the smoke/fog level in Freestyler
         /// </summary>
         /// <param name="level">fog level (0 to 255)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task SetFogLevel(int level)
+        private static async Task SetFogLevel(int level, CancellationToken cancellationToken = default)
         {
             if (level < 0 || level > 255)
             {
                 return;
             }
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("304", level.ToString("000")) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("304", level.ToString("000")) }, cancellationToken);
         }
 
         /// <summary>
         /// Set the smoke/fog fan speed in Freestyler
         /// </summary>
         /// <param name="level">fan speed (0 to 255)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task SetFogFanSpeed(int level)
+        private static async Task SetFogFanSpeed(int level, CancellationToken cancellationToken = default)
         {
             if (level < 0 || level > 255)
             {
                 return;
             }
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("305", level.ToString("000")) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("305", level.ToString("000")) }, cancellationToken);
         }
 
         /// <summary>
         /// Set the master intensity in Freestyler
         /// </summary>
         /// <param name="level">intensity level to set (0 to 255)</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task SetMasterIntensity(int level)
+        private static async Task SetMasterIntensity(int level, CancellationToken cancellationToken = default)
         {
             if (level < 0 || level > 255)
             {
                 return;
             }
 
-            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("155", level.ToString("000")) });
+            await SendTcpCommand(new List<Tuple<string, string>>() { new Tuple<string, string>("155", level.ToString("000")) }, cancellationToken);
         }
 
         /// <summary>
         /// Get the status of a Freestyler item
         /// </summary>
         /// <param name="item">Freestyler item to query status of</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns><see cref="Task"/></returns>
-        private static async Task<string> GetStatus(int item)
+        private static async Task<string> GetStatus(int item, CancellationToken cancellationToken = default)
         {
-            string resp = "";
-            List<string> itemList = new List<string>()
+            await SlimSem.WaitAsync(cancellationToken);
+
+            string resp = string.Empty;
+            
+            while (isQueryRunning)
             {
-                "0", "001", "002", "003", "004", "005", "006", "007", "008", "009", "010",
-                "011", "012", "013", "014", "015", "016", "017", "018", "019", "020", "021",
-                "022", "023"
-            };
+                await Task.Delay(500, cancellationToken);
+            }
+
+            isQueryRunning = true;
 
             AsyncTcpClient client = new AsyncTcpClient();
 
             try
             {
-                if (await client.ConnectAsync())
+                if (await client.ConnectAsync(cancellationToken))
                 {
-                    resp = await client.QueryAsync(itemList[item]);
+                    resp = await client.QueryAsync(item.ToString("000"), cancellationToken);
                 }
                 
             }
@@ -712,9 +792,20 @@ namespace FreestylerRemote
             finally
             {
                 client.Disconnect();
+                isQueryRunning = false;
+                SlimSem.Release();
             }
 
             return resp;
+        }
+
+        /// <summary>
+        /// Check for an instance of Freestyler
+        /// </summary>
+        /// <returns><see cref="bool"/></returns>
+        private static bool IsFreestylerRunning()
+        {
+            return System.Diagnostics.Process.GetProcessesByName("FreestylerX2").Length > 0;
         }
 
         /// <summary>

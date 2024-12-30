@@ -6,12 +6,8 @@
 namespace FreestylerRemote
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Net.Sockets;
-    using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,7 +18,7 @@ namespace FreestylerRemote
     /// <remarks>
     /// Asynchronous TCP Client used to communicate with Freestyler over TCP/IP.
     /// </remarks>
-    internal class AsyncTcpClient
+    public class AsyncTcpClient : IDisposable
     {
         /// <summary>
         /// IP Address for Freestyler instance on local machine
@@ -45,6 +41,11 @@ namespace FreestylerRemote
         private NetworkStream _clientStream;
 
         /// <summary>
+        /// Disposed flag
+        /// </summary>
+        private bool _disposed = false;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AsyncTcpClient"/> class.
         /// </summary>
         public AsyncTcpClient()
@@ -57,9 +58,20 @@ namespace FreestylerRemote
         /// </summary>
         ~AsyncTcpClient()
         {
-            if (this._client != null)
+            this.Dispose(false);
+        }
+
+        /// <summary>
+        /// Validate arguments
+        /// </summary>
+        /// <param name="param">String Value of Parameter</param>
+        /// <param name="paramName">Name of Parameter</param>
+        /// <exception cref="ArgumentException">Argument Exception</exception>
+        public static void ValidateArgs(string param, string paramName)
+        {
+            if (string.IsNullOrEmpty(param) || param.Length != 3)
             {
-                this.Disconnect();
+                throw new ArgumentException($"Invalid {paramName} specified.  Must be 3 characters.", paramName);
             }
         }
 
@@ -70,10 +82,15 @@ namespace FreestylerRemote
         /// <returns><see cref="Task"/></returns>
         public async Task<bool> ConnectAsync(CancellationToken cancellationToken = default)
         {
+            if (this._client is null)
+            {
+                this._client = new TcpClient();
+            }
+
             try
             {
-                await this._client.ConnectAsync(FreestylerIp, FreestylerPort);
-                
+                await this._client.ConnectAsync(FreestylerIp, FreestylerPort).ConfigureAwait(false);
+
                 if (!this._client.Connected)
                 {
                     return false;
@@ -81,11 +98,27 @@ namespace FreestylerRemote
 
                 this._clientStream = this._client.GetStream();
                 this._clientStream.ReadTimeout = 2000;
+                this._clientStream.WriteTimeout = 2000;
             }
-            catch (Exception e)
+            catch (TaskCanceledException)
             {
-                Console.WriteLine(e);
-                throw;
+                // Connection Canceled
+                return false;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                // IP Address or Port out of range
+                return false;
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                // Client connection failed
+                return false;
+            }
+            catch (ObjectDisposedException)
+            {
+                // Client disposed
+                return false;
             }
 
             return true;
@@ -98,15 +131,8 @@ namespace FreestylerRemote
         {
             try
             {
-                if (!(this._clientStream is null))
-                {
-                    this._clientStream.Dispose();
-                }
-                
-                if (!(this._client is null))
-                {
-                    this._client.Dispose();
-                }
+                this._clientStream?.Dispose();
+                this._client?.Dispose();
             }
             catch (Exception e)
             {
@@ -130,20 +156,17 @@ namespace FreestylerRemote
                 return;
             }
 
-            const int click = 255;
-            const int release = 0;
+            const int Click = 255;
+            const int Release = 0;
 
-            //F,S,O,D,Blackout,Spare,Click,Spare,Spare
-            byte[] buffer = { 70, 83, 79, 68, cmd1, cmd2, click, 0, 0 };
+            // F,S,O,D,Blackout,Spare,Click,Spare,Spare
+            byte[] buffer = { 70, 83, 79, 68, cmd1, cmd2, Click, 0, 0 };
 
-            //F,S,O,D,Blackout,Spare,Release,Spare,Spare
-            byte[] buffer2 = { 70, 83, 79, 68, cmd1, cmd2, release, 0, 0 };
+            // F,S,O,D,Blackout,Spare,Release,Spare,Spare
+            byte[] buffer2 = { 70, 83, 79, 68, cmd1, cmd2, Release, 0, 0 };
 
-            await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
-            await this._clientStream.FlushAsync(cancellationToken);
-
-            await this._clientStream.WriteAsync(buffer2, 0, buffer2.Length, cancellationToken);
-            await this._clientStream.FlushAsync(cancellationToken);
+            await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false);
+            await this._clientStream.WriteAsync(buffer2, 0, buffer2.Length, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -156,6 +179,9 @@ namespace FreestylerRemote
         /// <returns><see cref="Task"/></returns>
         public async Task SendAsync(string code, string arg, string option = "", CancellationToken cancellationToken = default)
         {
+            ValidateArgs(code, nameof(code));
+            ValidateArgs(arg, nameof(arg));            
+
             if (this._clientStream is null)
             {
                 // throw new InvalidOperationException("No active connection to send data.");
@@ -168,12 +194,35 @@ namespace FreestylerRemote
                 string buffer = "FSOC" + code + arg; // + opt;
 
                 byte[] data = Encoding.ASCII.GetBytes(buffer);
-                await this._clientStream.WriteAsync(data, 0, data.Length, cancellationToken);
+                await this._clientStream.WriteAsync(data, 0, data.Length, cancellationToken).ConfigureAwait(false);
             }
-            catch (Exception e)
+            catch (TaskCanceledException)
             {
-                Console.WriteLine(e);
-                throw;
+                // Send Canceled
+            }
+            catch (EncoderFallbackException)
+            {
+                // Encoder Fallback
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                // Argument Out of Range
+            }
+            catch (ArgumentException)
+            {
+                // Argument Exception
+            }
+            catch (NotSupportedException)
+            {
+                // Not Supported
+            }
+            catch (ObjectDisposedException)
+            {
+                // Object Disposed
+            }
+            catch (InvalidOperationException)
+            {
+                // Invalid Operation
             }
         }
 
@@ -196,7 +245,7 @@ namespace FreestylerRemote
 
             do
             {
-                System.Threading.Thread.Sleep(500);
+                await Task.Delay(500, cancellationToken).ConfigureAwait(false);
                 counter++;
             }
             while (!this._clientStream.DataAvailable && counter < 10);
@@ -205,7 +254,7 @@ namespace FreestylerRemote
             {
                 if (this._clientStream.DataAvailable)
                 {
-                    int numBytes = await this._clientStream.ReadAsync(respBuffer, 0, respBuffer.Length, cancellationToken);
+                    int numBytes = await this._clientStream.ReadAsync(respBuffer, 0, respBuffer.Length, cancellationToken).ConfigureAwait(false);
 
                     if (numBytes == 0)
                     {
@@ -256,18 +305,17 @@ namespace FreestylerRemote
 
             try
             {
-                await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken);
-                await this._clientStream.FlushAsync(cancellationToken);
+                await this._clientStream.WriteAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false);
 
                 while (!this._clientStream.DataAvailable && counter < 10)
                 {
-                    await Task.Delay(500, cancellationToken);
+                    await Task.Delay(500, cancellationToken).ConfigureAwait(false);
                     counter++;
                 }
                 
                 if (this._clientStream.DataAvailable)
                 {
-                    int numBytes = await this._clientStream.ReadAsync(respBuffer, 0, respBuffer.Length, cancellationToken);
+                    int numBytes = await this._clientStream.ReadAsync(respBuffer, 0, respBuffer.Length, cancellationToken).ConfigureAwait(false);
 
                     // Need to look into this further to properly handle the response
                     resp = Encoding.ASCII.GetString(respBuffer, 0, numBytes);
@@ -289,6 +337,33 @@ namespace FreestylerRemote
             }
 
             return resp;
+        }
+
+        /// <summary>
+        /// Dispose of resources
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose of resources
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    this._clientStream?.Dispose();
+                    this._client?.Dispose();
+                }
+
+                this._disposed = true;
+            }
         }
     }
 }

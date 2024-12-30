@@ -55,7 +55,7 @@ namespace FreestylerRemote
         /// <summary>
         /// FreeStyler status values available for request
         /// </summary>
-        private static readonly Dictionary<string, int> freestylerStatus = new Dictionary<string, int>() 
+        internal static readonly Dictionary<string, int> FreestylerStatus = new Dictionary<string, int>() 
         {
             { "cueCaptions", 1 }, { "overrideCaptions", 2 }, { "cuelistCaptionsCurrent", 3 }, { "cuelistCaptionsAll", 4 }, { "cueStatus", 5 },
             { "overrideButtonsSetting", 6 }, { "overrideButtonsStatus", 7 }, { "groupNames", 8 }, { "groupStatus", 9 }, { "version", 10 },
@@ -150,7 +150,7 @@ namespace FreestylerRemote
 
                 if (IsFreestylerRunning())
                 {
-                    masterIntensity = await GetStatus(freestylerStatus["masterIntensity"], cancellationToken);
+                    masterIntensity = await GetStatus(FreestylerStatus["masterIntensity"], cancellationToken);
                     tmpValue = masterIntensity;
                 }
             };
@@ -311,7 +311,7 @@ namespace FreestylerRemote
                 {
                     if (IsFreestylerRunning())
                     {
-                        tmpValue = GetStatus(freestylerStatus["masterIntensity"]).Result;
+                        tmpValue = GetStatus(FreestylerStatus["masterIntensity"]).Result;
                     }
 
                     if (masterIntensity != tmpValue)
@@ -372,7 +372,6 @@ namespace FreestylerRemote
         /// <returns><see cref="Task"/></returns>
         private static async Task HandleKeyUp(string action, Dictionary<string, JObject> settings, string context, CancellationToken cancellationToken = default)
         {
-            
             switch (action)
             {
                 case BaseUuid + ".toggleall":
@@ -803,7 +802,7 @@ namespace FreestylerRemote
         /// Check for an instance of Freestyler
         /// </summary>
         /// <returns><see cref="bool"/></returns>
-        private static bool IsFreestylerRunning()
+        internal static bool IsFreestylerRunning()
         {
             return System.Diagnostics.Process.GetProcessesByName("FreestylerX2").Length > 0;
         }
